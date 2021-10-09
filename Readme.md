@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Vasily Funtikov](https://up.htmlacademy.ru/react/8/user/789949).
-* Наставник: `Белик Павел`.
+* Наставник: [Белик Павел](https://up.htmlacademy.ru/react/8/user/84572).
 
 ---
 
