@@ -1,7 +1,11 @@
 import PlaceCard from '../place-card/place-card';
 
-function MainPage(): JSX.Element {
-  const cards = Array(5).fill(0).map((_, i) => i);
+type MainPageProps = {
+  cardsCount: number
+};
+
+function MainPage({cardsCount} : MainPageProps): JSX.Element {
+  const cards = Array(cardsCount).fill(0).map((_, i) => i);
   return (
     <div className="page page--gray page--main">
       <header className="header">
