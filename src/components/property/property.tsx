@@ -1,5 +1,13 @@
+import {useParams} from 'react-router-dom';
+
+interface ParamTypes {
+  id?: string
+}
 
 function Property(): JSX.Element {
+  const { id } = useParams<ParamTypes>();
+  // eslint-disable-next-line no-console
+  console.log(`Property.render, id=${id}`);
   return (
     <div className="page">
       <header className="header">
