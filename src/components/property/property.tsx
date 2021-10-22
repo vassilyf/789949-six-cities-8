@@ -1,5 +1,5 @@
 import {useParams} from 'react-router-dom';
-import {CommentType, OfferType} from '../../types/types';
+import {Comment, Offer} from '../../types/types';
 import {PropertyHostDescription} from './property-host-description';
 import {PropertyReviews} from './property-reviews';
 import {PropertyNearPlaceCard} from './property-near-place';
@@ -10,9 +10,9 @@ interface ParamTypes {
 }
 
 type PropertyType = {
-  offer: OfferType,
-  comments: CommentType[],
-  nearPlaces: OfferType[]
+  offer: Offer,
+  comments: Comment[],
+  nearPlaces: Offer[]
 }
 
 function Property({offer, comments, nearPlaces}: PropertyType): JSX.Element {

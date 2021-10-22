@@ -1,9 +1,9 @@
-import {UserType} from '../../types/types';
+import {User} from '../../types/types';
 import md5 from 'md5';
 
 type PropertyHostDescriptionProps = {
   descriptions: string[],
-  host: UserType
+  host: User
 }
 
 export function PropertyHostDescription({descriptions, host}: PropertyHostDescriptionProps): JSX.Element {

@@ -1,12 +1,28 @@
 import PlaceCardList from '../place-card-list/place-card-list';
-import {OfferType} from '../../types/types';
+import {Offer, Location, Point} from '../../types/types';
+import {List} from '../list/list';
+import {Map} from '../map/map';
+import React, {useState} from 'react';
 
 type MainPageProps = {
-  cardsCount: number,
-  offers: OfferType[],
+  offers: Offer[],
 };
 
-function MainPage({cardsCount, offers} : MainPageProps): JSX.Element {
+function locationToPoint(location: Location, title: string) : Point {
+  return {latitude: location.latitude, longitude: location.longitude, zoom: location.zoom, title: title};
+}
+
+function MainPage({offers} : MainPageProps): JSX.Element {
+  const points: Point[] = offers.map( (o) => locationToPoint(o.location, o.title) );
+  const city: Location = offers[0].city.location;
+  const [selectedPoint, setSelectedPoint] = useState<Point | undefined>(undefined);
+
+  const onListItemHover = (listItemName: string) => {
+    const currentPoint = points.find((point) => point.title === listItemName);
+
+    setSelectedPoint(currentPoint);
+  };
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -76,6 +92,7 @@ function MainPage({cardsCount, offers} : MainPageProps): JSX.Element {
           </section>
         </div>
         <div className="cities">
+          cities
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
@@ -98,7 +115,10 @@ function MainPage({cardsCount, offers} : MainPageProps): JSX.Element {
               <PlaceCardList offers={offers}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map" style={{backgroundImage: 'none'}}>
+                <List points={points} onListItemHover={onListItemHover} />
+                <Map city={city} points={points} selectedPoint={selectedPoint} />
+              </section>
             </div>
           </div>
         </div>

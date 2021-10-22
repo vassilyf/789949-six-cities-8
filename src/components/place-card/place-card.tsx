@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import {OfferType} from '../../types/types';
+import {Offer} from '../../types/types';
 
 type PlaceCardProps = {
-  offer: OfferType
+  offer: Offer
 }
 
 function PlaceCard({offer}: PlaceCardProps): JSX.Element {

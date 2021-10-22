@@ -1,5 +1,5 @@
 
-export type UserType = {
+export type User = {
   // eslint-disable-next-line camelcase
   avatar_url: string,
   id: number,
@@ -8,29 +8,30 @@ export type UserType = {
   name: string,
 }
 
-export type LocationType = {
+export type Location = {
   latitude: number,
   longitude: number,
-  zoom: number,
+  zoom: number
 };
 
-export type CityType = {
-  location: LocationType,
+export type City = {
+  location: Location,
   name: string
 };
 
-export type OfferType = {
+export type Offer = {
   id: number,
   title: string,
   type: string,
-  city: CityType,
+  city: City,
+  location: Location,
   bedrooms: number,
   // eslint-disable-next-line camelcase
   max_adults: number,
   goods: string[],
   price: number,
   rating: number,
-  host: UserType,
+  host: User,
   images: string[],
   // eslint-disable-next-line camelcase
   preview_image: string,
@@ -40,11 +41,17 @@ export type OfferType = {
   is_premium: boolean,
 };
 
-export type CommentType = {
+export type Comment = {
   comment: string,
   date: Date,
   id: number,
   rating: number,
-  user: UserType
+  user: User
 };
+
+export type Point = Location & {
+  title: string;
+};
+
+export type Points = Point[];
 

@@ -1,8 +1,8 @@
-import { CommentType } from '../../types/types';
+import { Comment } from '../../types/types';
 import {FeedbackForm} from './feedback-form';
 
 type PropertyReviewsProps = {
-  comments: CommentType[],
+  comments: Comment[],
 }
 
 export function PropertyReviews({comments}: PropertyReviewsProps): JSX.Element {
