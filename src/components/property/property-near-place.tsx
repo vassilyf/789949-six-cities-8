@@ -1,7 +1,7 @@
-import { OfferType } from '../../types/types';
+import { Offer } from '../../types/types';
 
 type PropertyNearPlaceCardProps = {
-  offer: OfferType,
+  offer: Offer,
 }
 
 export function PropertyNearPlaceCard({offer}: PropertyNearPlaceCardProps): JSX.Element {

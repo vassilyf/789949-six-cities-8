@@ -7,23 +7,22 @@ import Property from '../property/property';
 import PrivateRoute from '../private-route/private-route';
 import ErrorPage from '../error-page/error-page';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {OfferType, CommentType} from '../../types/types';
+import {Offer, Comment} from '../../types/types';
 
 
 type AppProps = {
-  cardsCount: number,
-  offers: OfferType[],
-  favorites: OfferType[],
-  comments: CommentType[]
-  nearPlaces: OfferType[]
+  offers: Offer[],
+  favorites: Offer[],
+  comments: Comment[]
+  nearPlaces: Offer[]
 }
 
-function App({cardsCount, offers, comments, favorites, nearPlaces} : AppProps): JSX.Element {
+function App({offers, comments, favorites, nearPlaces} : AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Main}>
-          <MainPage cardsCount={cardsCount} offers={offers} />;
+          <MainPage offers={offers} />;
         </Route>
         <PrivateRoute
           exact
