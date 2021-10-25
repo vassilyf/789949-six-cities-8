@@ -1,17 +1,18 @@
-import { Comment } from '../../types/types';
+import {Comment} from '../../types/types';
 
-type ReviewProps = {
+type ReviewsProps = {
   comment: Comment,
 }
 
-export function Review({comment}: ReviewProps): JSX.Element {
-  const reviewDateStr = `${comment.date.getFullYear()}-${comment.date.getMonth()}-${comment.date.getDay()}`;
-  const reviewMonth = `${comment.date.toLocaleString('default', { month: 'long' })} ${comment.date.getFullYear()}`;
+export function Review({comment}: ReviewsProps): JSX.Element {
+  const dt = comment.date;
+  const commentDate = `${dt.getFullYear()}-${dt.getMonth()}-${dt.getDay()}`;
+  const commentMonth = `${dt.toLocaleString('default', { month: 'long' })} ${dt.getFullYear()}`;
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src={comment.user.avatar_url} width="54" height="54" alt="Reviews avatar"/>
+          <img className="reviews__avatar user__avatar" src={comment.user.avatar_url} width="54" height="54"  alt="Reviews avatar"/>
         </div>
         <span className="reviews__user-name">{comment.user.name}</span>
       </div>
@@ -23,7 +24,7 @@ export function Review({comment}: ReviewProps): JSX.Element {
           </div>
         </div>
         <p className="reviews__text">{comment.comment}</p>
-        <time className="reviews__time" dateTime={reviewDateStr}>{reviewMonth}</time>
+        <time className="reviews__time" dateTime={commentDate}>{commentMonth}</time>
       </div>
     </li>
   );
