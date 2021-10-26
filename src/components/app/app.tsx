@@ -22,7 +22,7 @@ function App({offers, comments, favorites, nearPlaces} : AppProps): JSX.Element 
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Main}>
-          <MainPage offers={offers} />;
+          <MainPage/>;
         </Route>
         <PrivateRoute
           exact

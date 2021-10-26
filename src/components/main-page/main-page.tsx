@@ -1,20 +1,39 @@
-import PlaceCardList from '../place-card-list/place-card-list';
-import {Offer, Location, Point} from '../../types/types';
+import {PlaceCardList} from '../place-card-list/place-card-list';
+import {Location, Point, State} from '../../types/types';
 import {List} from '../list/list';
 import {Map} from '../map/map';
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
+import CitiesMenu from '../cities-list/cities-list';
+import {cities} from '../../mocks/cities';
+import {connect, ConnectedProps} from 'react-redux';
+import {Dispatch} from 'redux';
+import {Actions} from '../../types/action';
 
 type MainPageProps = {
-  offers: Offer[],
 };
 
 function locationToPoint(location: Location, title: string) : Point {
   return {latitude: location.latitude, longitude: location.longitude, zoom: location.zoom, title: title};
 }
 
-function MainPage({offers} : MainPageProps): JSX.Element {
-  const points: Point[] = offers.map( (o) => locationToPoint(o.location, o.title) );
-  const city: Location = offers[0].city.location;
+const mapStateToProps = ({city, offers}: State) => ({
+  selectedCity: city,
+  offers: offers,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedMainPageProps = PropsFromRedux & MainPageProps;
+
+
+function MainPage(props : ConnectedMainPageProps): JSX.Element {
+  const {selectedCity, offers} = props;
+  const points: Point[] = useMemo(() => offers.map( (o) => locationToPoint(o.location, o.title) ), [offers]);
+  const city: Location = selectedCity.location;
   const [selectedPoint, setSelectedPoint] = useState<Point | undefined>(undefined);
 
   const onListItemHover = (listItemName: string) => {
@@ -56,51 +75,16 @@ function MainPage({offers} : MainPageProps): JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active" href="/#">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
+          <CitiesMenu cities={cities}  />
         </div>
         <div className="cities">
-          cities
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} {offers.length === 1 ? 'place' : 'places'} to stay in {selectedCity.name}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
-                  Popular
                   <svg className="places__sorting-arrow" width="7" height="4">
                     <use xlinkHref="/#icon-arrow-select"></use>
                   </svg>
@@ -127,4 +111,5 @@ function MainPage({offers} : MainPageProps): JSX.Element {
   );
 }
 
-export default MainPage;
+export {MainPage};
+export default connector(MainPage);

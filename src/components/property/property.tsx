@@ -1,9 +1,11 @@
 import {useParams} from 'react-router-dom';
-import {Comment, Offer} from '../../types/types';
+import {Comment, Offer, Point} from '../../types/types';
 import {PropertyHostDescription} from './property-host-description';
 import {PropertyReviews} from './property-reviews';
-import {PropertyNearPlaceCard} from './property-near-place';
+import {NearPlaceCardList} from '../place-card-list/place-card-list';
 import md5 from 'md5';
+import {Map} from '../map/map';
+import React from 'react';
 
 interface ParamTypes {
   id?: string
@@ -17,6 +19,7 @@ type PropertyType = {
 
 function Property({offer, comments, nearPlaces}: PropertyType): JSX.Element {
   const { id } = useParams<ParamTypes>();
+  const nearPoints: Point[] = nearPlaces.map( (place) => Object.assign({},place.location, {title: place.title}) );
   // eslint-disable-next-line no-console
   console.log(`Property.render, id=${id}`);
   return (
@@ -114,14 +117,11 @@ function Property({offer, comments, nearPlaces}: PropertyType): JSX.Element {
               <PropertyReviews comments={comments}/>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <section className="property__map map">
+            <Map city={offer.city.location} points={nearPoints} selectedPoint={undefined} />
+          </section>
           <div className="container">
-            <section className="near-places places">
-              <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <div className="near-places__list places__list">
-                {nearPlaces.map( (place) => <PropertyNearPlaceCard key={place.id} offer={place} /> )}
-              </div>
-            </section>
+            <NearPlaceCardList offers={nearPlaces}/>
           </div>
         </section>
       </main>
