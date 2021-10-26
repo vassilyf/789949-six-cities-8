@@ -1,4 +1,4 @@
-import PlaceCardList from '../place-card-list/place-card-list';
+import {PlaceCardList} from '../place-card-list/place-card-list';
 import {Offer, Location, Point} from '../../types/types';
 import {List} from '../list/list';
 import {Map} from '../map/map';
