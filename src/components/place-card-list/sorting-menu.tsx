@@ -5,6 +5,24 @@ import {Actions} from '../../types/action';
 import {connect, ConnectedProps} from 'react-redux';
 import {setSortingSelection} from '../../store/action';
 
+type SortingMenuProps = {
+  sortingSelection: SortingSelection
+}
+
+const mapStateToProps = ({sortingSelection}: State) => ({
+});
+
+const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
+  onChangeSorting(selection: SortingSelection) {
+    dispatch(setSortingSelection(selection));
+  },
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedSortingMenuProps = PropsFromRedux & SortingMenuProps;
+
 type OffersComparator = (o1: Offer, o2: Offer) => number;
 
 const sortingSelectionList = [
@@ -34,24 +52,6 @@ export function getOffersSortingFunction(sortingSelection: SortingSelection): Of
   const selectedElement = sortingSelectionList.find( (s) => s.key === sortingSelection);
   return selectedElement ? selectedElement.sortingFunction : sortingSelectionList[0].sortingFunction;
 }
-
-type SortingMenuProps = {
-  sortingSelection: SortingSelection
-}
-
-const mapStateToProps = ({sortingSelection}: State) => ({
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-  onChangeSorting(selection: SortingSelection) {
-    dispatch(setSortingSelection(selection));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedSortingMenuProps = PropsFromRedux & SortingMenuProps;
 
 function SortingMenu({sortingSelection, onChangeSorting}: ConnectedSortingMenuProps): JSX.Element {
   const sortingSelectionEnsured = sortingSelection === undefined ? SortingSelection.Popular : sortingSelection;

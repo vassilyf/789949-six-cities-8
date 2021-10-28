@@ -1,27 +1,29 @@
-import {PlaceCardList} from '../place-card-list/place-card-list';
-import {Location, Point, State} from '../../types/types';
+import SortedPlaceCardList from '../place-card-list/place-card-list';
+import {Location, locationToPoint, Point, State} from '../../types/types';
 import {List} from '../list/list';
 import {Map} from '../map/map';
-import React, {useMemo, useState} from 'react';
+import React, {useMemo} from 'react';
 import CitiesMenu from '../cities-list/cities-list';
 import {cities} from '../../mocks/cities';
 import {connect, ConnectedProps} from 'react-redux';
 import {Dispatch} from 'redux';
 import {Actions} from '../../types/action';
+import {setSelectedPoint} from '../../store/action';
 
 type MainPageProps = {
 };
 
-function locationToPoint(location: Location, title: string) : Point {
-  return {latitude: location.latitude, longitude: location.longitude, zoom: location.zoom, title: title};
-}
-
-const mapStateToProps = ({city, offers}: State) => ({
-  selectedCity: city,
-  offers: offers,
+const mapStateToProps = (state: State) => ({
+  selectedCity: state.city,
+  offers: state.offers,
+  sortingSelection: state.sortingSelection,
+  selectedPoint: state.selectedPoint,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
+  onSelectPoint(selectedPoint: Point | undefined) {
+    dispatch(setSelectedPoint(selectedPoint));
+  },
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -31,15 +33,14 @@ type ConnectedMainPageProps = PropsFromRedux & MainPageProps;
 
 
 function MainPage(props : ConnectedMainPageProps): JSX.Element {
-  const {selectedCity, offers} = props;
+  const {selectedCity, offers, selectedPoint, onSelectPoint} = props;
   const points: Point[] = useMemo(() => offers.map( (o) => locationToPoint(o.location, o.title) ), [offers]);
   const city: Location = selectedCity.location;
-  const [selectedPoint, setSelectedPoint] = useState<Point | undefined>(undefined);
+  //  const [selectedPoint, setSelectedPoint] = useState<Point | undefined>(undefined);
 
   const onListItemHover = (listItemName: string) => {
     const currentPoint = points.find((point) => point.title === listItemName);
-
-    setSelectedPoint(currentPoint);
+    onSelectPoint(currentPoint);
   };
 
   return (
@@ -82,21 +83,7 @@ function MainPage(props : ConnectedMainPageProps): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offers.length} {offers.length === 1 ? 'place' : 'places'} to stay in {selectedCity.name}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="/#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
-              <PlaceCardList offers={offers}/>
+              <SortedPlaceCardList offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map" style={{backgroundImage: 'none'}}>

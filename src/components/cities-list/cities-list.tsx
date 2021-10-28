@@ -11,14 +11,8 @@ type CityItemProps = {
   onSelectCity: (city: City) => void,
 }
 
-function CityItem({city, active, onSelectCity}: CityItemProps): JSX.Element {
-  return (
-    <li className="locations__item">
-      <a className={`locations__item-link tabs__item ${active ? 'tabs__item--active' : ''}`} href="/#" onClick={ () => onSelectCity(city) }>
-        <span>{city.name}</span>
-      </a>
-    </li>
-  );
+type CitiesListProps = {
+  cities: City[]
 }
 
 const mapStateToProps = ({city}: State) => ({
@@ -36,8 +30,14 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedCitiesListProps = PropsFromRedux & CitiesListProps;
 
-export type CitiesListProps = {
-  cities: City[]
+function CityItem({city, active, onSelectCity}: CityItemProps): JSX.Element {
+  return (
+    <li className="locations__item">
+      <a className={`locations__item-link tabs__item ${active ? 'tabs__item--active' : ''}`} href="/#" onClick={ () => onSelectCity(city) }>
+        <span>{city.name}</span>
+      </a>
+    </li>
+  );
 }
 
 export function CitiesMenu(props: ConnectedCitiesListProps): JSX.Element {

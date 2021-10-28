@@ -1,8 +1,10 @@
-import {City, Offer} from './types';
+import {City, Offer, SortingSelection, Point} from './types';
 
 export enum ActionType {
   SelectCity = 'wheretogo/selectCity',
   SetOffers = 'wheretogo/setOffers',
+  SetSortingSelection = 'wheretogo/setSelectionMode',
+  SetSelectedPoint = 'wheretogo/setSelectedPoint',
 }
 
 export type SelectCityAction = {
@@ -15,4 +17,18 @@ export type SetOffersAction = {
   payload: Offer[];
 };
 
-export type Actions = SelectCityAction | SetOffersAction;
+export type SetSortingSelectionAction = {
+  type: ActionType.SetSortingSelection;
+  payload: SortingSelection;
+};
+
+export type SetSelectedPointAction = {
+  type: ActionType.SetSelectedPoint;
+  payload: Point | undefined;
+};
+
+export type Actions =
+  SelectCityAction
+  | SetOffersAction
+  | SetSortingSelectionAction
+  | SetSelectedPointAction;

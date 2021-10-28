@@ -1,10 +1,36 @@
 import { Link } from 'react-router-dom';
-import {Offer} from '../../types/types';
+import {locationToPoint, Offer, Point, State} from '../../types/types';
+import {Dispatch} from 'redux';
+import {Actions} from '../../types/action';
+import {setSelectedPoint} from '../../store/action';
+import {connect, ConnectedProps} from 'react-redux';
 
 type PlaceCardProps = {
   offer: Offer
 }
 
+export enum WrapperType {
+  Cities = 'cities',
+  Near = 'near'
+}
+
+type UniversalPlaceCardProps =  PlaceCardProps & {
+  cardType: WrapperType
+}
+
+const mapStateToProps = ({selectedPoint}: State) => ({
+});
+
+const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
+  onSelectPoint(selectedPoint: Point | undefined) {
+    dispatch(setSelectedPoint(selectedPoint));
+  },
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedUniversalPlaceCardProps = PropsFromRedux & UniversalPlaceCardProps;
 
 function PlaceCardContent({offer}: PlaceCardProps): JSX.Element {
   return (
@@ -35,19 +61,13 @@ function PlaceCardContent({offer}: PlaceCardProps): JSX.Element {
   );
 }
 
-export enum WrapperType {
-  Cities = 'cities',
-  Near = 'near'
-}
-
-type UniversalPlaceCardProps =  PlaceCardProps & {
-  cardType: WrapperType
-}
-
-export function UniversalPlaceCard({offer, cardType}: UniversalPlaceCardProps): JSX.Element {
+function UniversalPlaceCard({offer, cardType, onSelectPoint}: ConnectedUniversalPlaceCardProps): JSX.Element {
   return (
     <article className={`${cardType === WrapperType.Cities ? 'cities__place-card' : 'near-places__card' } place-card`}>
-      <div className={`${cardType === WrapperType.Cities ? 'cities__image-wrapper' : 'near-places__image-wrapper'} place-card__image-wrapper`}>
+      <div className={`${cardType === WrapperType.Cities ? 'cities__image-wrapper' : 'near-places__image-wrapper'} place-card__image-wrapper`}
+        onMouseEnter={ (e) => {onSelectPoint( locationToPoint(offer.location, offer.title) );} }
+        onMouseLeave={ (e) => {onSelectPoint(undefined);} }
+      >
         <Link to={`/offer/${offer.id}`}>
           <img className="place-card__image" src={offer.preview_image} width="260" height="200" alt="Place"/>
         </Link>
@@ -57,3 +77,4 @@ export function UniversalPlaceCard({offer, cardType}: UniversalPlaceCardProps): 
   );
 }
 
+export default connector(UniversalPlaceCard);
