@@ -15,15 +15,19 @@ export type Location = {
 };
 
 export type City = {
+  id: string,
+  name: string,
+}
+
+export type CityWithLocation = City & {
   location: Location,
-  name: string
 };
 
 export type Offer = {
   id: number,
   title: string,
   type: string,
-  city: City,
+  city: CityWithLocation,
   location: Location,
   bedrooms: number,
   // eslint-disable-next-line camelcase
@@ -55,3 +59,7 @@ export type Point = Location & {
 
 export type Points = Point[];
 
+export type State = {
+  city: CityWithLocation,
+  offers: Offer[]
+};
