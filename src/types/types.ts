@@ -59,7 +59,20 @@ export type Point = Location & {
 
 export type Points = Point[];
 
+export enum SortingSelection {
+  Popular,
+  LowToHigh,
+  HighToLow,
+  TopRated
+}
+
 export type State = {
   city: CityWithLocation,
-  offers: Offer[]
-};
+  offers: Offer[],
+  sortingSelection: SortingSelection,
+  selectedPoint: Point | undefined
+}
+
+export function locationToPoint(location: Location, title: string) : Point {
+  return {latitude: location.latitude, longitude: location.longitude, zoom: location.zoom, title: title};
+}
