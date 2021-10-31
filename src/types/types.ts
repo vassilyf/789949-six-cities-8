@@ -15,7 +15,6 @@ export type Location = {
 };
 
 export type City = {
-  id: string,
   name: string,
 }
 
@@ -43,6 +42,7 @@ export type Offer = {
   is_favorite: boolean,
   // eslint-disable-next-line camelcase
   is_premium: boolean,
+  description: string,
 };
 
 export type Comment = {
@@ -67,10 +67,14 @@ export enum SortingSelection {
 }
 
 export type State = {
+  allCitiesNames: string[],
+  allCitiesData: CityWithLocation[],
+  allOffers: Offer[],
   city: CityWithLocation,
   offers: Offer[],
   sortingSelection: SortingSelection,
-  selectedPoint: Point | undefined
+  selectedPoint: Point | undefined,
+  isDataLoaded: boolean,
 }
 
 export function locationToPoint(location: Location, title: string) : Point {

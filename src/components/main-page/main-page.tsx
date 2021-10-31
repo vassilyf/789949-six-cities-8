@@ -1,6 +1,5 @@
 import SortedPlaceCardList from '../place-card-list/place-card-list';
 import {Location, locationToPoint, Point, State} from '../../types/types';
-import {List} from '../list/list';
 import {Map} from '../map/map';
 import React, {useMemo} from 'react';
 import CitiesMenu from '../cities-list/cities-list';
@@ -33,15 +32,17 @@ type ConnectedMainPageProps = PropsFromRedux & MainPageProps;
 
 
 function MainPage(props : ConnectedMainPageProps): JSX.Element {
-  const {selectedCity, offers, selectedPoint, onSelectPoint} = props;
+  const {selectedCity, offers, selectedPoint} = props;
   const points: Point[] = useMemo(() => offers.map( (o) => locationToPoint(o.location, o.title) ), [offers]);
-  const city: Location = selectedCity.location;
+  const selectedCityLocation: Location = selectedCity.location;
+  // eslint-disable-next-line no-console
+  console.log(`MainPage: ${selectedCity.name}`);
   //  const [selectedPoint, setSelectedPoint] = useState<Point | undefined>(undefined);
 
-  const onListItemHover = (listItemName: string) => {
-    const currentPoint = points.find((point) => point.title === listItemName);
-    onSelectPoint(currentPoint);
-  };
+  //  const onListItemHover = (listItemName: string) => {
+  //    const currentPoint = points.find((point) => point.title === listItemName);
+  //    onSelectPoint(currentPoint);
+  //  };
 
   return (
     <div className="page page--gray page--main">
@@ -87,8 +88,7 @@ function MainPage(props : ConnectedMainPageProps): JSX.Element {
             </section>
             <div className="cities__right-section">
               <section className="cities__map" style={{backgroundImage: 'none'}}>
-                <List points={points} onListItemHover={onListItemHover} />
-                <Map city={city} points={points} selectedPoint={selectedPoint} />
+                <Map city={selectedCityLocation} points={points} selectedPoint={selectedPoint} />
               </section>
             </div>
           </div>
@@ -97,6 +97,8 @@ function MainPage(props : ConnectedMainPageProps): JSX.Element {
     </div>
   );
 }
+
+//                 <List points={points} onListItemHover={onListItemHover} />
 
 export {MainPage};
 export default connector(MainPage);
