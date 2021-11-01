@@ -5,11 +5,11 @@ import {
   SetSelectedPointAction,
   SetSortingSelectionAction
 } from '../types/action';
-import {City, Offer, Point, SortingSelection} from '../types/types';
+import {Offer, Point, SortingSelection} from '../types/types';
 
-export const selectCity = (city: City): SelectCityAction => ({
+export const selectCity = (cityName: string): SelectCityAction => ({
   type: ActionType.SelectCity,
-  payload: city,
+  payload: cityName,
 });
 
 export const setOffers = (offers: Offer[]): SetOffersAction => ({
@@ -26,3 +26,4 @@ export const setSelectedPoint = (selection: Point | undefined): SetSelectedPoint
   type: ActionType.SetSelectedPoint,
   payload: selection,
 });
+

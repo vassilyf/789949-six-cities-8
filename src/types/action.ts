@@ -1,4 +1,6 @@
-import {City, Offer, SortingSelection, Point} from './types';
+import {Offer, SortingSelection, Point, State} from './types';
+import {ThunkAction, ThunkDispatch } from 'redux-thunk';
+import {AxiosInstance} from 'axios';
 
 export enum ActionType {
   SelectCity = 'wheretogo/selectCity',
@@ -9,7 +11,7 @@ export enum ActionType {
 
 export type SelectCityAction = {
   type: ActionType.SelectCity;
-  payload: City;
+  payload: string; // cityName
 };
 
 export type SetOffersAction = {
@@ -32,3 +34,7 @@ export type Actions =
   | SetOffersAction
   | SetSortingSelectionAction
   | SetSelectedPointAction;
+
+export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
+
+export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;
