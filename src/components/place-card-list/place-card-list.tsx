@@ -2,8 +2,6 @@ import UniversalPlaceCard, {WrapperType} from '../place-card/place-card';
 import {Offer, State} from '../../types/types';
 import React from 'react';
 import SortingMenu, {getOffersSortingFunction} from './sorting-menu';
-import {Dispatch} from 'redux';
-import {Actions} from '../../types/action';
 import {connect, ConnectedProps} from 'react-redux';
 
 type PlaceCardListProps = {
@@ -14,10 +12,7 @@ const mapStateToProps = ({sortingSelection}: State) => ({
   sortingSelection: sortingSelection,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(mapStateToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedPlaceCardListProps = PropsFromRedux & PlaceCardListProps;

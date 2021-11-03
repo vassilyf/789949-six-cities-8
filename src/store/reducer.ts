@@ -1,6 +1,7 @@
 import {PARIS} from '../mocks/cities';
 import {CityWithLocation, Offer, SortingSelection, State} from '../types/types';
 import {Actions, ActionType} from '../types/action';
+import {AuthorizationStatus, guest} from '../const';
 
 const initialState: State = {
   allCitiesNames: ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'],
@@ -11,6 +12,8 @@ const initialState: State = {
   sortingSelection: SortingSelection.Popular,
   selectedPoint: undefined,
   isDataLoaded: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  currentUser: guest,
 };
 
 const getCityWithLocation = (cities: CityWithLocation[], cityName: string): CityWithLocation =>
@@ -47,6 +50,12 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return {...state, sortingSelection: action.payload};
     case ActionType.SetSelectedPoint:
       return {...state, selectedPoint: action.payload};
+    case ActionType.SetAuthInfo:
+      return {...state, currentUser: action.payload, authorizationStatus: AuthorizationStatus.Auth};
+    case ActionType.ConfirmAuthorization:
+      return {...state, currentUser: action.payload, authorizationStatus: AuthorizationStatus.Auth};
+    case ActionType.Logout:
+      return {...state, currentUser: guest, authorizationStatus: AuthorizationStatus.NoAuth};
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Offer, SortingSelection, State} from '../../types/types';
+import {Offer, SortingSelection} from '../../types/types';
 import {Dispatch} from 'redux';
 import {Actions} from '../../types/action';
 import {connect, ConnectedProps} from 'react-redux';
@@ -9,16 +9,13 @@ type SortingMenuProps = {
   sortingSelection: SortingSelection
 }
 
-const mapStateToProps = ({sortingSelection}: State) => ({
-});
-
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
   onChangeSorting(selection: SortingSelection) {
     dispatch(setSortingSelection(selection));
   },
 });
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(null, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedSortingMenuProps = PropsFromRedux & SortingMenuProps;

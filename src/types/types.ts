@@ -1,3 +1,4 @@
+import {AuthorizationStatus} from '../const';
 
 export type User = {
   // eslint-disable-next-line camelcase
@@ -6,6 +7,11 @@ export type User = {
   // eslint-disable-next-line camelcase
   is_pro: boolean,
   name: string,
+}
+
+export type AuthUser = {
+  email: string,
+  password: string,
 }
 
 export type Location = {
@@ -66,6 +72,17 @@ export enum SortingSelection {
   TopRated
 }
 
+export type AuthInfo = {
+  id: number,
+  // eslint-disable-next-line camelcase
+  avatar_url: string,
+  email: string,
+  // eslint-disable-next-line camelcase
+  is_pro: boolean,
+  name: string,
+  token: string,
+}
+
 export type State = {
   allCitiesNames: string[],
   allCitiesData: CityWithLocation[],
@@ -75,8 +92,11 @@ export type State = {
   sortingSelection: SortingSelection,
   selectedPoint: Point | undefined,
   isDataLoaded: boolean,
+  authorizationStatus: AuthorizationStatus,
+  currentUser: AuthInfo,
 }
 
 export function locationToPoint(location: Location, title: string) : Point {
   return {latitude: location.latitude, longitude: location.longitude, zoom: location.zoom, title: title};
 }
+
