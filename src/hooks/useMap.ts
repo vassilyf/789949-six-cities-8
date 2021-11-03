@@ -10,7 +10,6 @@ function useMap(
 
   useEffect(() => {
     if (mapRef.current !== null && map === null) {
-      //const point = {lat: 40.835292, lng: -73.916236};
       const instance = new Map(mapRef.current, {
         center: {
           lat: cityLocation.latitude,

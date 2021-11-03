@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import {locationToPoint, Offer, Point, State} from '../../types/types';
+import {locationToPoint, Offer, Point} from '../../types/types';
 import {Dispatch} from 'redux';
 import {Actions} from '../../types/action';
 import {setSelectedPoint} from '../../store/action';
@@ -18,16 +18,13 @@ type UniversalPlaceCardProps =  PlaceCardProps & {
   cardType: WrapperType
 }
 
-const mapStateToProps = ({selectedPoint}: State) => ({
-});
-
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
   onSelectPoint(selectedPoint: Point | undefined) {
     dispatch(setSelectedPoint(selectedPoint));
   },
 });
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(null, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedUniversalPlaceCardProps = PropsFromRedux & UniversalPlaceCardProps;

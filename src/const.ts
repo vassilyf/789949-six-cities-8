@@ -1,3 +1,4 @@
+import {AuthInfo} from './types/types';
 
 export enum AppRoute {
   Main = '/',
@@ -7,6 +8,7 @@ export enum AppRoute {
 }
 
 export enum AuthorizationStatus {
+  Unknown = 0,
   Auth,
   NoAuth
 }
@@ -22,3 +24,14 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
 }
+
+export const guest: AuthInfo = {
+  'avatar_url': '',
+  'email': 'Guest',
+  'id': 0,
+  'is_pro': false,
+  'name': 'Guest',
+  'token': '',
+};
+
+export const AUTH_FAIL_MESSAGE = 'Ошибка аутентификации';
