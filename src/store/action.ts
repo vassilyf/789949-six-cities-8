@@ -9,8 +9,10 @@ import {
   ConfirmAuthorizationAction,
   RedirectAction
 } from '../types/action';
-import {AuthInfo, Offer, Point, SortingSelection} from '../types/types';
+import {Comment, AuthInfo, Offer, Point, SortingSelection, OperationStatus, CommentPost} from '../types/types';
 import {AppRoute} from '../const';
+import {createAction} from '@reduxjs/toolkit';
+
 
 export const selectCity = (cityName: string): SelectCityAction => ({
   type: ActionType.SelectCity,
@@ -46,14 +48,40 @@ export const confirmAuthorization = (authInfo: AuthInfo): ConfirmAuthorizationAc
   payload: authInfo,
 });
 
-// export const redirectToRoute = createAction(
-//   ActionType.Redirect,
-//   (url: AppRoute) => ({
-//     payload: url,
-//   }),
-// );
-
-export const redirectToRoute = (url: AppRoute): RedirectAction => ({
+export const redirectTo = (url: AppRoute): RedirectAction => ({
   type: ActionType.Redirect,
   payload: url,
 });
+
+export const resetOfferDetails = createAction(
+  ActionType.ResetOfferDetails, () => ({ payload: undefined}),
+);
+
+export const setOfferDetails = createAction(
+  ActionType.SetOfferDetails, (offer: Offer) => ({ payload: offer}),
+);
+
+export const setNearPlaces = createAction(
+  ActionType.SetNearPlaces, (offers: Offer[]) => ({ payload: offers}),
+);
+
+export const setComments = createAction(
+  ActionType.SetComments, (comments: Comment[]) => ({ payload: comments}),
+);
+
+export const setReviewSavingStatus = createAction(
+  ActionType.SetReviewSavingStatus, (status: OperationStatus) => ({ payload: status}),
+);
+
+export const setReview = createAction(
+  ActionType.SetReview, (review: CommentPost) => ({ payload: review}),
+);
+
+export const setFavorites = createAction(
+  ActionType.SetFavorites, (favorites: Offer[]) => ({ payload: favorites}),
+);
+
+// export const setReviewSavingStatus = (status: OperationStatus): SetReviewSavingStatusAction => ({
+//   type: ActionType.SetReviewSavingStatus,
+//   payload: status,
+// });

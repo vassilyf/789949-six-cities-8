@@ -1,19 +1,34 @@
-import { Comment } from '../../types/types';
-import {FeedbackForm} from './feedback-form';
+import {State} from '../../types/types';
+import FeedbackForm from './feedback-form';
 import {Review} from './review';
+import {connect, ConnectedProps} from 'react-redux';
+import {MAX_COMMENTS_ON_PAGE} from '../../const';
 
-type PropertyReviewsProps = {
-  comments: Comment[],
-}
+const mapStateToProps = (state: State) => ({
+  comments: state.offerDetails.comments,
+  isAuthorized: state.isAuthorized,
+  offerId: state.offerDetails.offer?.id,
+});
 
-export function PropertyReviews({comments}: PropertyReviewsProps): JSX.Element {
+const connector = connect(mapStateToProps);
+type ConnectedPropertyReviewsProps = ConnectedProps<typeof connector>;
+
+function PropertyReviews({comments, isAuthorized, offerId}: ConnectedPropertyReviewsProps): JSX.Element {
+  const sortedComments = comments.sort( (a, b) => {
+    if (a.date === b.date) {
+      return 0;
+    } else {
+      return a.date > b.date ? -1 : 1;
+    }}).slice(0, MAX_COMMENTS_ON_PAGE);
   return (
     <section className="property__reviews reviews">
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
       <ul className="reviews__list">
-        {comments.map( (c) => <Review key={c.id} comment={c}/>)}
+        {sortedComments.map( (c) => <Review key={c.id} comment={c}/>)}
       </ul>
-      <FeedbackForm/>
+      {isAuthorized && offerId ? <FeedbackForm offerId={offerId}/> : null}
     </section>
   );
 }
+
+export default connector(PropertyReviews);

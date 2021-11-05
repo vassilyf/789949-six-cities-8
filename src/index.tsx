@@ -2,19 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import App from './components/app/app';
-import {amsterdamOffers as mockOffers} from './mocks/offers';
-import {commentGets as mockCommentGet} from './mocks/comments';
 import {createAPI} from './services/api';
 import {applyMiddleware, createStore} from 'redux';
 import {reducer} from './store/reducer';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import {fetchOffersAction} from './store/api-actions';
+import {checkAuthAction, fetchOffersAction} from './store/api-actions';
 import {ThunkAppDispatch} from './types/action';
 import {redirect} from './store/middleware/redirect';
 import {ToastContainer} from 'react-toastify';
+import {logout} from './store/action';
 
-const api = createAPI();
+const api = createAPI( () => store.dispatch(logout() ) );
 
 export const store = createStore(
   reducer,
@@ -25,12 +24,13 @@ export const store = createStore(
 );
 
 (store.dispatch as ThunkAppDispatch)(fetchOffersAction());
+(store.dispatch as ThunkAppDispatch)(checkAuthAction());
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store = {store}>
       <ToastContainer/>
-      <App favorites={mockOffers} comments={mockCommentGet} nearPlaces={mockOffers}/>
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

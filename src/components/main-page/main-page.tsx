@@ -10,12 +10,9 @@ import {Dispatch} from 'redux';
 import {Actions} from '../../types/action';
 import {setSelectedPoint} from '../../store/action';
 
-type MainPageProps = {
-};
-
 const mapStateToProps = (state: State) => ({
   selectedCity: state.city,
-  offers: state.offers,
+  offers: state.cityOffers,
   sortingSelection: state.sortingSelection,
   selectedPoint: state.selectedPoint,
 });
@@ -27,10 +24,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedMainPageProps = PropsFromRedux & MainPageProps;
-
+type ConnectedMainPageProps = ConnectedProps<typeof connector>;
 
 function MainPage(props : ConnectedMainPageProps): JSX.Element {
   const {selectedCity, offers, selectedPoint} = props;

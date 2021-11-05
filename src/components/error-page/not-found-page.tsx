@@ -1,13 +1,14 @@
-function ErrorPage(): JSX.Element {
+
+function NotFoundPage(): JSX.Element {
   return (
     <main>
       <div className="container">
         <section >
-          <h2>Application error</h2>
+          <h2>Page not found</h2>
         </section >
       </div>
     </main>
   );
 }
 
-export default ErrorPage;
+export default NotFoundPage;
