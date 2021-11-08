@@ -5,34 +5,25 @@ import Login from '../login/login';
 import Favorites from '../favorites/favorites';
 import Property from '../property/property';
 import PrivateRoute from '../private-route/private-route';
+import NotFoundPage from '../error-page/not-found-page';
 import ErrorPage from '../error-page/error-page';
 import {AppRoute} from '../../const';
-import {Offer, Comment, State} from '../../types/types';
-import {amsterdamOffers} from '../../mocks/offers';
+import {State} from '../../types/types';
 import {connect, ConnectedProps} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import browserHistory from '../../browser-history';
 
-type AppProps = {
-  favorites: Offer[],
-  comments: Comment[]
-  nearPlaces: Offer[],
-}
-
-const mapStateToProps = ({isDataLoaded, authorizationStatus}: State) => ({
+const mapStateToProps = ({isDataLoaded, isAuthorized}: State) => ({
   isDataLoaded: isDataLoaded,
-  authorizationStatus: authorizationStatus,
+  authorizationStatus: isAuthorized,
 });
 
 const connector = connect(mapStateToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedAppProps = PropsFromRedux & AppProps;
+type ConnectedAppProps = ConnectedProps<typeof connector>;
 
 function App(props : ConnectedAppProps): JSX.Element {
-  const {comments, favorites, nearPlaces, isDataLoaded, authorizationStatus} = props;
+  const {isDataLoaded} = props;
   // eslint-disable-next-line no-console
-  console.log(`App authStatus ${authorizationStatus}`);
   if (!isDataLoaded) {
     return <LoadingScreen/>;
   } else {
@@ -45,18 +36,20 @@ function App(props : ConnectedAppProps): JSX.Element {
           <PrivateRoute
             exact
             path={AppRoute.Favorites}
-            render={() => <Favorites favorites={favorites}/>}
-            authorizationStatus={authorizationStatus}
+            render={() => <Favorites/>}
           >
           </PrivateRoute>
           <Route exact path={AppRoute.Room}>
-            <Property offer={amsterdamOffers[0]} comments={comments} nearPlaces={nearPlaces}/>
+            <Property />
           </Route>
           <Route exact path={AppRoute.SignIn}>
             <Login/>
           </Route>
-          <Route>
+          <Route exact path={AppRoute.ApplicationError}>
             <ErrorPage/>
+          </Route>
+          <Route>
+            <NotFoundPage/>
           </Route>
         </Switch>
       </BrowserRouter>);

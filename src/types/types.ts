@@ -1,5 +1,3 @@
-import {AuthorizationStatus} from '../const';
-
 export type User = {
   // eslint-disable-next-line camelcase
   avatar_url: string,
@@ -59,6 +57,13 @@ export type Comment = {
   user: User
 };
 
+export type RawComment = Omit<Comment, 'date'> & { date: string };
+
+export type CommentPost = {
+  comment: string,
+  rating: number
+};
+
 export type Point = Location & {
   title: string;
 };
@@ -83,20 +88,38 @@ export type AuthInfo = {
   token: string,
 }
 
+export type OfferDetails = {
+  offer: Offer | undefined,
+  comments: Comment[],
+  nearPlaces: Offer[],
+}
+
 export type State = {
   allCitiesNames: string[],
   allCitiesData: CityWithLocation[],
   allOffers: Offer[],
   city: CityWithLocation,
-  offers: Offer[],
+  cityOffers: Offer[],
+  offerDetails: OfferDetails,
   sortingSelection: SortingSelection,
   selectedPoint: Point | undefined,
   isDataLoaded: boolean,
-  authorizationStatus: AuthorizationStatus,
+  favorites: Offer[],
+  review: Review,
+  isAuthorized: boolean,
   currentUser: AuthInfo,
 }
 
 export function locationToPoint(location: Location, title: string) : Point {
   return {latitude: location.latitude, longitude: location.longitude, zoom: location.zoom, title: title};
+}
+
+export enum OperationStatus {
+  InProcess,
+  Done
+}
+
+export type Review = CommentPost & {
+  reviewSavingStatus: OperationStatus,
 }
 

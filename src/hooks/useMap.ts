@@ -18,11 +18,6 @@ function useMap(
         zoom: 10,
       });
 
-      // eslint-disable-next-line no-console
-      console.log('create map');
-      // eslint-disable-next-line no-console
-      console.log(cityLocation);
-
       const layer = new TileLayer(
         'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
         {

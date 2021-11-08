@@ -1,26 +1,20 @@
 import React from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {State} from '../../types/types';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import UserStatus from './user-status';
 import { LoginLink } from './login-link';
 import { Link } from 'react-router-dom';
 
-type PageHeaderProps = {
-};
-
-const mapStateToProps = ({currentUser, authorizationStatus}: State) => ({
+const mapStateToProps = ({currentUser, isAuthorized}: State) => ({
   currentUser: currentUser,
-  authorizationStatus: authorizationStatus,
+  isAuthorized: isAuthorized,
 });
 
 const connector = connect(mapStateToProps);
+type ConnectedPageHeaderProps = ConnectedProps<typeof connector>;
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedPageHeaderProps = PropsFromRedux & PageHeaderProps;
-
-
-function PageHeader({currentUser, authorizationStatus} : ConnectedPageHeaderProps): JSX.Element {
+function PageHeader({currentUser, isAuthorized} : ConnectedPageHeaderProps): JSX.Element {
   return (
     <div className="container">
       <div className="header__wrapper">
@@ -30,7 +24,7 @@ function PageHeader({currentUser, authorizationStatus} : ConnectedPageHeaderProp
           </Link>
         </div>
         <nav className="header__nav">
-          {authorizationStatus === AuthorizationStatus.Auth ?  <UserStatus currentUser={currentUser}/> : <LoginLink/> }
+          {isAuthorized ? <UserStatus currentUser={currentUser}/> : <LoginLink/> }
         </nav>
       </div>
     </div>

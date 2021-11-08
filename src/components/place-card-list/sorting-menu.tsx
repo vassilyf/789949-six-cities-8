@@ -16,9 +16,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
 });
 
 const connector = connect(null, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedSortingMenuProps = PropsFromRedux & SortingMenuProps;
+type ConnectedSortingMenuProps = ConnectedProps<typeof connector> & SortingMenuProps;
 
 type OffersComparator = (o1: Offer, o2: Offer) => number;
 

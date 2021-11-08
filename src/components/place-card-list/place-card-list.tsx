@@ -13,9 +13,7 @@ const mapStateToProps = ({sortingSelection}: State) => ({
 });
 
 const connector = connect(mapStateToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedPlaceCardListProps = PropsFromRedux & PlaceCardListProps;
+type ConnectedPlaceCardListProps = ConnectedProps<typeof connector> & PlaceCardListProps;
 
 export function PlaceCardList({offers}: PlaceCardListProps): JSX.Element {
   return (

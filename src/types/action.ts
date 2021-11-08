@@ -1,4 +1,4 @@
-import {Offer, SortingSelection, Point, State, AuthInfo} from './types';
+import {Offer, SortingSelection, Point, State, AuthInfo, Comment, OperationStatus, CommentPost} from './types';
 import {ThunkAction, ThunkDispatch } from 'redux-thunk';
 import {AxiosInstance} from 'axios';
 import {AppRoute} from '../const';
@@ -12,6 +12,13 @@ export enum ActionType {
   Logout = 'wheretogo/logout',
   ConfirmAuthorization = 'wheretogo/confirmAuthorization',
   Redirect = 'wheretogo/redirect',
+  ResetOfferDetails = 'wheretogo/resetofferdetails',
+  SetOfferDetails = 'wheretogo/setofferdetails',
+  SetNearPlaces = 'wheretogo/setnearplaces',
+  SetComments = 'wheretogo/setcomments',
+  SetReview = 'wheretogo/setreview',
+  SetReviewSavingStatus = 'wheretogo/setreviewsendingstatus',
+  SetFavorites = 'wheretogo/setfavorites',
 }
 
 export type SelectCityAction = {
@@ -53,6 +60,42 @@ export type RedirectAction = {
   payload: AppRoute;
 };
 
+// clear one offer details selection before fetching data
+export type ResetOfferDetailsAction = {
+  type: ActionType.ResetOfferDetails;
+};
+
+export type SetOfferDetailsAction = {
+  type: ActionType.SetOfferDetails;
+  payload: Offer;
+};
+
+export type SetNearPlacesAction = {
+  type: ActionType.SetNearPlaces;
+  payload: Offer[];
+};
+
+export type SetCommentsAction = {
+  type: ActionType.SetComments;
+  payload: Comment[];
+};
+
+export type SetReviewSavingStatusAction = {
+  type: ActionType.SetReviewSavingStatus;
+  payload: OperationStatus;
+};
+
+export type SetReviewAction = {
+  type: ActionType.SetReview;
+  payload: CommentPost;
+};
+
+export type SetFavoritesAction = {
+  type: ActionType.SetFavorites;
+  payload: Offer[];
+};
+
+
 export type Actions =
   SelectCityAction
   | SetOffersAction
@@ -61,7 +104,14 @@ export type Actions =
   | SetAuthInfoAction
   | LogoutAction
   | ConfirmAuthorizationAction
-  | RedirectAction;
+  | RedirectAction
+  | SetOfferDetailsAction
+  | SetNearPlacesAction
+  | SetCommentsAction
+  | ResetOfferDetailsAction
+  | SetReviewSavingStatusAction
+  | SetReviewAction
+  | SetFavoritesAction;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 

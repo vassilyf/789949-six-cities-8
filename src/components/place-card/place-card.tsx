@@ -25,9 +25,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
 });
 
 const connector = connect(null, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedUniversalPlaceCardProps = PropsFromRedux & UniversalPlaceCardProps;
+type ConnectedUniversalPlaceCardProps = ConnectedProps<typeof connector> & UniversalPlaceCardProps;
 
 function PlaceCardContent({offer}: PlaceCardProps): JSX.Element {
   return (
