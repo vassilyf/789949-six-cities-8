@@ -19,6 +19,7 @@ export enum ActionType {
   SetReview = 'wheretogo/setreview',
   SetReviewSavingStatus = 'wheretogo/setreviewsendingstatus',
   SetFavorites = 'wheretogo/setfavorites',
+  MarkFavorite = 'wheretogo/markfavorite',
 }
 
 export type SelectCityAction = {
@@ -95,6 +96,16 @@ export type SetFavoritesAction = {
   payload: Offer[];
 };
 
+export type FavoriteMark = {
+  hotelId: number,
+  isFavorite: boolean
+}
+
+export type MarkFavoriteAction = {
+  type: ActionType.MarkFavorite;
+  payload: FavoriteMark;
+};
+
 
 export type Actions =
   SelectCityAction
@@ -111,7 +122,8 @@ export type Actions =
   | ResetOfferDetailsAction
   | SetReviewSavingStatusAction
   | SetReviewAction
-  | SetFavoritesAction;
+  | SetFavoritesAction
+  | MarkFavoriteAction;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 

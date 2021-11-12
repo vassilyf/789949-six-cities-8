@@ -13,9 +13,9 @@ import {fetchCommentsAction, fetchNearPlacesAction, fetchOfferDetailsAction} fro
 import {resetOfferDetails} from '../../store/action';
 import {ThunkAppDispatch} from '../../types/action';
 
-const mapStateToProps = (state: State) => ({
-  offer: state.offerDetails.offer,
-  nearPlaces: state.offerDetails.nearPlaces,
+const mapStateToProps = ({DETAILS: {offerDetails}}: State) => ({
+  offer: offerDetails.offer,
+  nearPlaces: offerDetails.nearPlaces,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({

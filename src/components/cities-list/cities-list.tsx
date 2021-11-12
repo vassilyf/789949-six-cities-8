@@ -15,7 +15,7 @@ type CitiesListProps = {
   cities: City[]
 }
 
-const mapStateToProps = ({city}: State) => ({
+const mapStateToProps = ({OFFERS: {city}}: State) => ({
   selectedName: city.name,
 });
 

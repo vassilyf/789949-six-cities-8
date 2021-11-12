@@ -8,7 +8,7 @@ type PrivateRouteProps = RouteProps & {
   render: () => JSX.Element;
 }
 
-const mapStateToProps = ({isAuthorized}: State) => ({
+const mapStateToProps = ({AUTH: {isAuthorized}}: State) => ({
   isAuthorized: isAuthorized,
 });
 

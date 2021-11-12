@@ -11,8 +11,8 @@ type FeedbackFormProps = {
   offerId: number
 }
 
-const mapStateToProps = (state: State) => ({
-  review: state.review,
+const mapStateToProps = ({DETAILS}: State) => ({
+  review: DETAILS.review,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({

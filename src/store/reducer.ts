@@ -1,9 +1,27 @@
-import {PARIS} from '../mocks/cities';
-import {CityWithLocation, Offer, OfferDetails, OperationStatus, SortingSelection, State} from '../types/types';
-import {Actions, ActionType} from '../types/action';
-import {guest} from '../const';
+import {combineReducers} from '@reduxjs/toolkit';
+import {authProcess} from './reducers/auth-process';
+import {offersProcess} from './reducers/offers-process';
+import {detailsProcess} from './reducers/details-process';
+import {favoritesProcess} from './reducers/favorites-process';
 
-const EMPTY_OFFER_DETAILS: OfferDetails = {
+
+export enum NameSpace {
+  auth = 'AUTH',
+  offers = 'OFFERS',
+  details = 'DETAILS',
+  favorites = 'FAVORITES',
+}
+
+export const reducer = combineReducers({
+  [NameSpace.auth]: authProcess,
+  [NameSpace.offers]: offersProcess,
+  [NameSpace.details]: detailsProcess,
+  [NameSpace.favorites]: favoritesProcess,
+});
+
+export type RootState = ReturnType<typeof reducer>;
+
+/*const EMPTY_OFFER_DETAILS: OfferDetails = {
   offer: undefined,
   comments:[],
   nearPlaces: [],
@@ -42,7 +60,7 @@ const reducer = (state: State = initialState, action: Actions): State => {
     case ActionType.SelectCity:
       return {
         ...state,
-        city: getCityWithLocation(state.allCitiesData, action.payload),
+        city: useMemo( () => getCityWithLocation(state.allCitiesData, action.payload), []),
         cityOffers: getOffersForCity(state.allOffers, action.payload),
         sortingSelection: SortingSelection.Popular,
         selectedPoint: undefined,
@@ -96,3 +114,4 @@ const reducer = (state: State = initialState, action: Actions): State => {
 };
 
 export {reducer};
+*/

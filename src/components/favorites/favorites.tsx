@@ -1,4 +1,4 @@
-import {State} from '../../types/types';
+import {Offer, State} from '../../types/types';
 import {FavoritesCard} from '../favorites-card/favorites-card';
 import PageHeader from '../page-header/page-header';
 import {connect, ConnectedProps} from 'react-redux';
@@ -6,7 +6,7 @@ import {ThunkAppDispatch} from '../../types/action';
 import {fetchFavorites} from '../../store/api-actions';
 import {useEffect} from 'react';
 
-const mapStateToProps = ({favorites}: State) => ({
+const mapStateToProps = ({FAVORITES: {favorites}}: State) => ({
   favorites: favorites,
 });
 
@@ -19,11 +19,27 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type ConnectedPageHeaderProps = ConnectedProps<typeof connector>;
 
+type FavoritesMap = {
+  [key: string]: Offer[],
+}
+
+const getFavoritesByCity = (favorites: Offer[]) =>
+  favorites.reduce( (map: FavoritesMap, offer) => {
+    const name: string = offer.city.name;
+    if (! (name in map) ) {
+      map[offer.city.name] = [];
+    }
+    map[offer.city.name].push(offer);
+    return map;
+  }, {});
+
+
 function Favorites({favorites, doFetchFavorites}: ConnectedPageHeaderProps): JSX.Element {
   useEffect( () => {
     doFetchFavorites();
   }, [doFetchFavorites]);
 
+  const favoritesByCity = getFavoritesByCity(favorites);
   return (
     <div className="page">
       <header className="header">
@@ -35,18 +51,22 @@ function Favorites({favorites, doFetchFavorites}: ConnectedPageHeaderProps): JSX
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="/#">
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  {favorites.map( (favoriteOffer) => <FavoritesCard key={favoriteOffer.id} offer={favoriteOffer}/>)}
-                </div>
-              </li>
+              { Object.keys(favoritesByCity).map( (name) =>
+                (
+                  <li key={name} className="favorites__locations-items">
+                    <div className="favorites__locations locations locations--current">
+                      <div className="locations__item">
+                        <a className="locations__item-link" href="/#">
+                          <span>{name}</span>
+                        </a>
+                      </div>
+                    </div>
+                    <div className="favorites__places">
+                      {favoritesByCity[name].map( (favoriteOffer) => <FavoritesCard key={favoriteOffer.id} offer={favoriteOffer}/>)}
+                    </div>
+                  </li>
+                ),
+              )}
             </ul>
           </section>
         </div>

@@ -6,9 +6,9 @@ import UserStatus from './user-status';
 import { LoginLink } from './login-link';
 import { Link } from 'react-router-dom';
 
-const mapStateToProps = ({currentUser, isAuthorized}: State) => ({
-  currentUser: currentUser,
-  isAuthorized: isAuthorized,
+const mapStateToProps = ({AUTH}: State) => ({
+  currentUser: AUTH.currentUser,
+  isAuthorized: AUTH.isAuthorized,
 });
 
 const connector = connect(mapStateToProps);

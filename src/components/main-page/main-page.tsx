@@ -10,11 +10,11 @@ import {Dispatch} from 'redux';
 import {Actions} from '../../types/action';
 import {setSelectedPoint} from '../../store/action';
 
-const mapStateToProps = (state: State) => ({
-  selectedCity: state.city,
-  offers: state.cityOffers,
-  sortingSelection: state.sortingSelection,
-  selectedPoint: state.selectedPoint,
+const mapStateToProps = ({OFFERS}: State) => ({
+  selectedCity: OFFERS.city,
+  offers: OFFERS.cityOffers,
+  sortingSelection: OFFERS.sortingSelection,
+  selectedPoint: OFFERS.selectedPoint,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
