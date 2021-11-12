@@ -62,7 +62,10 @@ function Favorites({favorites, doFetchFavorites}: ConnectedPageHeaderProps): JSX
                       </div>
                     </div>
                     <div className="favorites__places">
-                      {favoritesByCity[name].map( (favoriteOffer) => <FavoritesCard key={favoriteOffer.id} offer={favoriteOffer}/>)}
+                      {favoritesByCity[name].map(
+                        (favoriteOffer) =>
+                          <FavoritesCard key={favoriteOffer.id} offer={favoriteOffer}/>,
+                      )}
                     </div>
                   </li>
                 ),

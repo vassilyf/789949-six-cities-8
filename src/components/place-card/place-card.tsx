@@ -26,10 +26,10 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
 const connector = connect(null, mapDispatchToProps);
 type ConnectedUniversalPlaceCardProps = ConnectedProps<typeof connector> & UniversalPlaceCardProps;
 
-function PlaceCardContent({offer}: PlaceCardProps ): JSX.Element {
+function PlaceCardContent(props: PlaceCardProps ): JSX.Element {
   return (
     <div className="place-card__info">
-      <Bookmark offer={offer}/>
+      <Bookmark {...props}/>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
           <span style={{width: '80%'}}></span>
@@ -37,9 +37,9 @@ function PlaceCardContent({offer}: PlaceCardProps ): JSX.Element {
         </div>
       </div>
       <h2 className="place-card__name">
-        <a href="/#">{offer.title}</a>
+        <a href="/#">{props.offer.title}</a>
       </h2>
-      <p className="place-card__type">{offer.type}</p>
+      <p className="place-card__type">{props.offer.type}</p>
     </div>
   );
 }
