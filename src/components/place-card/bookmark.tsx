@@ -9,8 +9,8 @@ export type BookmarkProps = {
   offer: Offer
 }
 
-const mapStateToProps = ({AUTH: {isAuthorized}}: State) => ({
-  isAuthorized: isAuthorized,
+const mapStateToProps = ({auth}: State) => ({
+  isAuthorized: auth.isAuthorized,
 });
 
 

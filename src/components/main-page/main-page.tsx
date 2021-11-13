@@ -10,11 +10,11 @@ import {setSelectedPoint} from '../../store/action';
 import {NoOffers} from './no-offers';
 import {OffersContainer} from './offers-container';
 
-const mapStateToProps = ({OFFERS}: State) => ({
-  selectedCity: OFFERS.city,
-  offers: OFFERS.cityOffers,
-  sortingSelection: OFFERS.sortingSelection,
-  selectedPoint: OFFERS.selectedPoint,
+const mapStateToProps = ({offers}: State) => ({
+  selectedCity: offers.city,
+  offers: offers.cityOffers,
+  sortingSelection: offers.sortingSelection,
+  selectedPoint: offers.selectedPoint,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({

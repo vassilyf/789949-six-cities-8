@@ -1,11 +1,11 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {createSelector} from 'reselect';
 import {Offer, OffersState, SortingSelection} from '../../types/types';
 import {selectCity, setOffers, setSelectedPoint, setSortingSelection, markFavorite} from '../action';
 import {AMSTERDAM, PARIS} from '../../mocks/cities';
+import {citiesDataFromOffers, getCityWithLocation, getOffersForCity} from './offers-selectors';
 
 const initialState: OffersState = {
-  allCitiesNames: ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'],
+  allCitiesNames: [PARIS.name, 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'],
   allCitiesData: [],
   allOffers: [],
   city: PARIS,
@@ -15,21 +15,8 @@ const initialState: OffersState = {
   isDataLoaded: false,
 };
 
-const getCityWithLocation = createSelector( (state: OffersState, cityName: string) => state.allCitiesData, (state: OffersState, cityName: string) => cityName,
-  (cities, cityName) => cities.find( (c) => c.name === cityName) ?? PARIS,
-);
-
-const getOffersForCity = createSelector( (state: OffersState) => state.allOffers, (state: OffersState) => state.city.name,
-  (offers, cityName) => offers.filter( (o) => o.city.name === cityName),
-);
-
-const citiesDataFromOffers = createSelector( (offers: Offer[]) => offers, (offers) =>
-  Object.values(Object.fromEntries(offers.map( (o) => [o.city.name, o.city] ) ) ),
-);
-
 const excludeCityOffersForTesting = (offers: Offer[], cityName: string) =>
   offers.filter( (o) => o.city.name !== cityName);
-
 
 const bookmarkOffer = (offers: Offer[], hotelId: number, isFavorite: boolean) => {
   const offer = offers.find( (o) => o.id === hotelId);

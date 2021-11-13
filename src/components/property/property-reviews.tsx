@@ -4,10 +4,10 @@ import {Review} from './review';
 import {connect, ConnectedProps} from 'react-redux';
 import {MAX_COMMENTS_ON_PAGE} from '../../const';
 
-const mapStateToProps = ({AUTH, DETAILS}: State) => ({
-  comments: DETAILS.offerDetails.comments,
-  isAuthorized: AUTH.isAuthorized,
-  offerId: DETAILS.offerDetails.offer?.id,
+const mapStateToProps = ({auth, details}: State) => ({
+  comments: details.offerDetails.comments,
+  isAuthorized: auth.isAuthorized,
+  offerId: details.offerDetails.offer?.id,
 });
 
 const connector = connect(mapStateToProps);

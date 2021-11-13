@@ -13,9 +13,9 @@ import {connect, ConnectedProps} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import browserHistory from '../../browser-history';
 
-const mapStateToProps = ({OFFERS, AUTH}: State) => ({
-  isDataLoaded: OFFERS.isDataLoaded,
-  authorizationStatus: AUTH.isAuthorized,
+const mapStateToProps = ({offers, auth}: State) => ({
+  isDataLoaded: offers.isDataLoaded,
+  authorizationStatus: auth.isAuthorized,
 });
 
 const connector = connect(mapStateToProps);

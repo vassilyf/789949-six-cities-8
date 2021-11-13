@@ -6,8 +6,8 @@ import {ThunkAppDispatch} from '../../types/action';
 import {fetchFavorites} from '../../store/api-actions';
 import {useEffect} from 'react';
 
-const mapStateToProps = ({FAVORITES: {favorites}}: State) => ({
-  favorites: favorites,
+const mapStateToProps = ({favorites}: State) => ({
+  favorites: favorites.favorites,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
@@ -24,13 +24,13 @@ type FavoritesMap = {
 }
 
 const getFavoritesByCity = (favorites: Offer[]) =>
-  favorites.reduce( (map: FavoritesMap, offer) => {
+  favorites.reduce( (favoritesMap: FavoritesMap, offer) => {
     const name: string = offer.city.name;
-    if (! (name in map) ) {
-      map[offer.city.name] = [];
+    if (! (name in favoritesMap) ) {
+      favoritesMap[offer.city.name] = [];
     }
-    map[offer.city.name].push(offer);
-    return map;
+    favoritesMap[offer.city.name].push(offer);
+    return favoritesMap;
   }, {});
 
 

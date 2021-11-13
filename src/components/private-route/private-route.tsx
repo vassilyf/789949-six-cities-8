@@ -8,8 +8,8 @@ type PrivateRouteProps = RouteProps & {
   render: () => JSX.Element;
 }
 
-const mapStateToProps = ({AUTH: {isAuthorized}}: State) => ({
-  isAuthorized: isAuthorized,
+const mapStateToProps = ({auth}: State) => ({
+  isAuthorized: auth.isAuthorized,
 });
 
 const connector = connect(mapStateToProps);
