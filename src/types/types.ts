@@ -121,7 +121,6 @@ export type FavoritesState = {
   favorites: Offer[],
 }
 
-//export type State = AuthState & OffersState & DetailsState & FavoritesState;
 export type State = RootState;
 
 export function locationToPoint(location: Location, title: string) : Point {

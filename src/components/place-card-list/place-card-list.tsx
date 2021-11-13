@@ -8,8 +8,8 @@ type PlaceCardListProps = {
   offers: Offer[]
 }
 
-const mapStateToProps = ({OFFERS: {sortingSelection}}: State) => ({
-  sortingSelection: sortingSelection,
+const mapStateToProps = ({offers}: State) => ({
+  sortingSelection: offers.sortingSelection,
 });
 
 const connector = connect(mapStateToProps);
