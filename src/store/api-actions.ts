@@ -10,7 +10,7 @@ import {
   setNearPlaces,
   setComments,
   setReviewSavingStatus,
-  setFavorites
+  setFavorites, markFavorite
 } from './action';
 import {Offer, AuthInfo, AuthUser, RawComment, CommentPost, OperationStatus} from '../types/types';
 import {PARIS} from '../mocks/cities';
@@ -50,7 +50,7 @@ export const fetchCommentsAction = (id: string): ThunkActionResult =>
     dispatch(setComments(comments));
   };
 
-export const saveReview = (id: string, rating: number, comment: string): ThunkActionResult =>
+export const saveReview = (hotelId: string, rating: number, comment: string): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     dispatch(setReviewSavingStatus(OperationStatus.InProcess));
     const postData: CommentPost = {
@@ -58,8 +58,8 @@ export const saveReview = (id: string, rating: number, comment: string): ThunkAc
       rating: rating,
     };
     try {
-      await api.post(`${APIRoute.Comments}/${id}`, postData);
-      dispatch(fetchCommentsAction(id));
+      await api.post(`${APIRoute.Comments}/${hotelId}`, postData);
+      dispatch(fetchCommentsAction(hotelId));
       dispatch(setReviewSavingStatus(OperationStatus.Done));
     } catch {
       toast.info(SAVE_REVIEW_ERROR_MESSAGE);
@@ -70,6 +70,17 @@ export const fetchFavorites = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const {data} = await api.get<Offer[]>(APIRoute.Favorite);
     dispatch(setFavorites(data));
+  };
+
+export const saveFavorite = (hotelId: number, isFavorite: boolean): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    try {
+      await api.post<AuthInfo>(`${APIRoute.Favorite}/${hotelId}/${isFavorite ? 1 : 0}`);
+      dispatch(fetchFavorites());
+      dispatch(markFavorite({hotelId: hotelId, isFavorite: isFavorite} ));
+    } catch {
+      toast.info(AUTH_FAIL_MESSAGE);
+    }
   };
 
 

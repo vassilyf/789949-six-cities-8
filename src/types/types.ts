@@ -1,3 +1,5 @@
+import {RootState} from '../store/reducer';
+
 export type User = {
   // eslint-disable-next-line camelcase
   avatar_url: string,
@@ -94,21 +96,32 @@ export type OfferDetails = {
   nearPlaces: Offer[],
 }
 
-export type State = {
+export type AuthState = {
+  isAuthorized: boolean,
+  currentUser: AuthInfo,
+}
+
+export type OffersState = {
   allCitiesNames: string[],
   allCitiesData: CityWithLocation[],
   allOffers: Offer[],
   city: CityWithLocation,
   cityOffers: Offer[],
-  offerDetails: OfferDetails,
   sortingSelection: SortingSelection,
   selectedPoint: Point | undefined,
   isDataLoaded: boolean,
-  favorites: Offer[],
-  review: Review,
-  isAuthorized: boolean,
-  currentUser: AuthInfo,
 }
+
+export type DetailsState = {
+  offerDetails: OfferDetails,
+  review: Review,
+}
+
+export type FavoritesState = {
+  favorites: Offer[],
+}
+
+export type State = RootState;
 
 export function locationToPoint(location: Location, title: string) : Point {
   return {latitude: location.latitude, longitude: location.longitude, zoom: location.zoom, title: title};

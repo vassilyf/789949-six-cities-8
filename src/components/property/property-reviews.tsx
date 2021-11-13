@@ -4,17 +4,17 @@ import {Review} from './review';
 import {connect, ConnectedProps} from 'react-redux';
 import {MAX_COMMENTS_ON_PAGE} from '../../const';
 
-const mapStateToProps = (state: State) => ({
-  comments: state.offerDetails.comments,
-  isAuthorized: state.isAuthorized,
-  offerId: state.offerDetails.offer?.id,
+const mapStateToProps = ({auth, details}: State) => ({
+  comments: details.offerDetails.comments,
+  isAuthorized: auth.isAuthorized,
+  offerId: details.offerDetails.offer?.id,
 });
 
 const connector = connect(mapStateToProps);
 type ConnectedPropertyReviewsProps = ConnectedProps<typeof connector>;
 
 function PropertyReviews({comments, isAuthorized, offerId}: ConnectedPropertyReviewsProps): JSX.Element {
-  const sortedComments = comments.sort( (a, b) => {
+  const sortedComments = [...comments].sort( (a, b) => {
     if (a.date === b.date) {
       return 0;
     } else {

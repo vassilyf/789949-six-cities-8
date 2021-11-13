@@ -13,9 +13,9 @@ import {connect, ConnectedProps} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import browserHistory from '../../browser-history';
 
-const mapStateToProps = ({isDataLoaded, isAuthorized}: State) => ({
-  isDataLoaded: isDataLoaded,
-  authorizationStatus: isAuthorized,
+const mapStateToProps = ({offers, auth}: State) => ({
+  isDataLoaded: offers.isDataLoaded,
+  authorizationStatus: auth.isAuthorized,
 });
 
 const connector = connect(mapStateToProps);
@@ -23,7 +23,6 @@ type ConnectedAppProps = ConnectedProps<typeof connector>;
 
 function App(props : ConnectedAppProps): JSX.Element {
   const {isDataLoaded} = props;
-  // eslint-disable-next-line no-console
   if (!isDataLoaded) {
     return <LoadingScreen/>;
   } else {

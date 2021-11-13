@@ -1,24 +1,23 @@
 import { Link } from 'react-router-dom';
 import {locationToPoint, Offer, Point} from '../../types/types';
-import {Dispatch} from 'redux';
-import {Actions} from '../../types/action';
+import {ThunkAppDispatch} from '../../types/action';
 import {setSelectedPoint} from '../../store/action';
 import {connect, ConnectedProps} from 'react-redux';
+import Bookmark, {BookmarkProps} from './bookmark';
 
-type PlaceCardProps = {
-  offer: Offer
-}
+type PlaceCardProps = BookmarkProps;
 
 export enum WrapperType {
   Cities = 'cities',
   Near = 'near'
 }
 
-type UniversalPlaceCardProps =  PlaceCardProps & {
+type UniversalPlaceCardProps = {
+  offer: Offer,
   cardType: WrapperType
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   onSelectPoint(selectedPoint: Point | undefined) {
     dispatch(setSelectedPoint(selectedPoint));
   },
@@ -27,21 +26,10 @@ const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
 const connector = connect(null, mapDispatchToProps);
 type ConnectedUniversalPlaceCardProps = ConnectedProps<typeof connector> & UniversalPlaceCardProps;
 
-function PlaceCardContent({offer}: PlaceCardProps): JSX.Element {
+function PlaceCardContent({offer}: PlaceCardProps ): JSX.Element {
   return (
     <div className="place-card__info">
-      <div className="place-card__price-wrapper">
-        <div className="place-card__price">
-          <b className="place-card__price-value">&euro;{offer.price}</b>
-          <span className="place-card__price-text">&#47;&nbsp;night</span>
-        </div>
-        <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-          <svg className="place-card__bookmark-icon" width="18" height="19">
-            <use xlinkHref="/#icon-bookmark"></use>
-          </svg>
-          <span className="visually-hidden">In bookmarks</span>
-        </button>
-      </div>
+      <Bookmark offer={offer}/>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
           <span style={{width: '80%'}}></span>

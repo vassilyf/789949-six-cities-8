@@ -1,6 +1,6 @@
 import UniversalPlaceCard, {WrapperType} from '../place-card/place-card';
 import {Offer, State} from '../../types/types';
-import React from 'react';
+import React, {useMemo} from 'react';
 import SortingMenu, {getOffersSortingFunction} from './sorting-menu';
 import {connect, ConnectedProps} from 'react-redux';
 
@@ -8,8 +8,8 @@ type PlaceCardListProps = {
   offers: Offer[]
 }
 
-const mapStateToProps = ({sortingSelection}: State) => ({
-  sortingSelection: sortingSelection,
+const mapStateToProps = ({offers}: State) => ({
+  sortingSelection: offers.sortingSelection,
 });
 
 const connector = connect(mapStateToProps);
@@ -24,7 +24,7 @@ export function PlaceCardList({offers}: PlaceCardListProps): JSX.Element {
 }
 
 export function SortedPlaceCardList({offers, sortingSelection}: ConnectedPlaceCardListProps): JSX.Element {
-  const sortedOffers = offers.sort(getOffersSortingFunction(sortingSelection) );
+  const sortedOffers = useMemo( () => [...offers].sort(getOffersSortingFunction(sortingSelection)), [offers, sortingSelection]);
   return (
     <React.Fragment>
       <SortingMenu sortingSelection={sortingSelection}/>

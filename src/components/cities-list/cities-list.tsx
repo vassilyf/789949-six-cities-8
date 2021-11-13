@@ -15,8 +15,8 @@ type CitiesListProps = {
   cities: City[]
 }
 
-const mapStateToProps = ({city}: State) => ({
-  selectedName: city.name,
+const mapStateToProps = ({offers}: State) => ({
+  selectedName: offers.city.name,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
