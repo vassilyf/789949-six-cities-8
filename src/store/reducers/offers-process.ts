@@ -1,7 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {Offer, OffersState, SortingSelection} from '../../types/types';
 import {selectCity, setOffers, setSelectedPoint, setSortingSelection, markFavorite} from '../action';
-import {PARIS} from '../../mocks/cities';
+import {AMSTERDAM, PARIS} from '../../mocks/cities';
 import {citiesDataFromOffers, getCityWithLocation, getOffersForCity} from './offers-selectors';
 
 const initialState: OffersState = {
@@ -15,6 +15,9 @@ const initialState: OffersState = {
   isDataLoaded: false,
 };
 
+const excludeCityOffersForTesting = (offers: Offer[], cityName: string) =>
+  offers.filter( (o) => o.city.name !== cityName);
+
 const bookmarkOffer = (offers: Offer[], hotelId: number, isFavorite: boolean) => {
   const offer = offers.find( (o) => o.id === hotelId);
   if (offer) {
@@ -26,7 +29,7 @@ const bookmarkOffer = (offers: Offer[], hotelId: number, isFavorite: boolean) =>
 const offersProcess = createReducer(initialState, (builder) => {
   builder
     .addCase(setOffers, (state, action) => {
-      state.allOffers = action.payload;
+      state.allOffers = excludeCityOffersForTesting(action.payload, AMSTERDAM.name);
       state.city = initialState.city;
       state.cityOffers = getOffersForCity(state);
       state.allCitiesData = citiesDataFromOffers(action.payload);

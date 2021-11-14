@@ -30,7 +30,7 @@ function App(props : ConnectedAppProps): JSX.Element {
       <BrowserRouter history={browserHistory}>
         <Switch>
           <Route exact path={AppRoute.Main}>
-            <MainPage/>;
+            <MainPage/>
           </Route>
           <PrivateRoute
             exact
