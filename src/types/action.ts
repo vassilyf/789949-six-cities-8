@@ -108,7 +108,6 @@ export type Actions =
   | SetSelectedPointAction
   | SetAuthInfoAction
   | LogoutAction
-  // | ConfirmAuthorizationAction
   | RedirectAction
   | SetOfferDetailsAction
   | SetNearPlacesAction
