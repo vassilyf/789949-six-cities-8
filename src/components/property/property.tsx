@@ -2,7 +2,6 @@ import {Point, State} from '../../types/types';
 import {PropertyHostDescription} from './property-host-description';
 import PropertyReviews from './property-reviews';
 import {NearPlaceCardList} from '../place-card-list/place-card-list';
-import md5 from 'md5';
 import {Map} from '../map/map';
 import React, {useEffect} from 'react';
 import PageHeader from '../page-header/page-header';
@@ -58,7 +57,7 @@ function Property({offer, nearPlaces, onChangeOfferDetails}: ConnectedPropertyPr
             <div className="property__gallery-container container">
               <div className="property__gallery">
                 {offer.images.map((imageStr) => (
-                  <div key={md5(imageStr)} className="property__image-wrapper">
+                  <div key={imageStr} className="property__image-wrapper">
                     <img className="property__image" src={imageStr} alt="studio"/>
                   </div>
                 ))}
@@ -114,7 +113,7 @@ function Property({offer, nearPlaces, onChangeOfferDetails}: ConnectedPropertyPr
                     )}
                   </ul>
                 </div>
-                <PropertyHostDescription descriptions={[]} host={offer.host}/>
+                <PropertyHostDescription descriptions={[offer.description]} host={offer.host}/>
                 <PropertyReviews/>
               </div>
             </div>

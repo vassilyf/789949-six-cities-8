@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
-import {locationToPoint, Offer, Point} from '../../types/types';
+import {Offer, Point} from '../../types/types';
 import {ThunkAppDispatch} from '../../types/action';
 import {setSelectedPoint} from '../../store/action';
 import {connect, ConnectedProps} from 'react-redux';
 import Bookmark, {BookmarkProps} from './bookmark';
+import {locationToPoint} from '../../store/reducers/offers-selectors';
 
 type PlaceCardProps = BookmarkProps;
 

@@ -1,7 +1,7 @@
 import {AMSTERDAM, PARIS} from './cities';
 
 
-export const amsterdamOffers = [
+export const TEST_AMSTERDAM_OFFERS = [
   {
     'bedrooms': 3,
     'city': AMSTERDAM,
@@ -14,7 +14,7 @@ export const amsterdamOffers = [
       'name': 'Angelina',
     },
     'id': 1,
-    'images': ['img/room.jpg', 'img/room.jpg'],
+    'images': ['img/room.jpg', 'img/room2.jpg'],
     'is_favorite': true,
     'is_premium': false,
     'location': {
@@ -41,7 +41,7 @@ export const amsterdamOffers = [
       'name': 'Angelina',
     },
     'id': 2,
-    'images': ['img/room.jpg', 'img/room.jpg'],
+    'images': ['img/room.jpg', 'img/room2.jpg'],
     'is_favorite': false,
     'is_premium': false,
     'location': {
@@ -68,7 +68,7 @@ export const amsterdamOffers = [
       'name': 'Angelina',
     },
     'id': 3,
-    'images': ['img/room.jpg', 'img/room.jpg'],
+    'images': ['img/room.jpg', 'img/room2.jpg'],
     'is_favorite': false,
     'is_premium': false,
     'location': {
@@ -95,7 +95,7 @@ export const amsterdamOffers = [
       'name': 'Angelina',
     },
     'id': 4,
-    'images': ['img/room.jpg', 'img/room.jpg'],
+    'images': ['img/room.jpg', 'img/room2.jpg'],
     'is_favorite': false,
     'is_premium': false,
     'location': {
@@ -112,7 +112,7 @@ export const amsterdamOffers = [
   }];
 
 
-export const parisOffers = [
+export const TEST_PARIS_OFFERS = [
   {
     'bedrooms': 3,
     'city': PARIS,
@@ -124,8 +124,8 @@ export const parisOffers = [
       'is_pro': true,
       'name': 'Angelina',
     },
-    'id': 1,
-    'images': ['img/room.jpg', 'img/room.jpg'],
+    'id': 5,
+    'images': ['img/room.jpg', 'img/room2.jpg'],
     'is_favorite': true,
     'is_premium': false,
     'location': {

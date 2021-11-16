@@ -1,5 +1,5 @@
-import {Location, locationToPoint, Point, State} from '../../types/types';
-import React, {useMemo} from 'react';
+import {Location, Point, State} from '../../types/types';
+import React from 'react';
 import CitiesMenu from '../cities-list/cities-list';
 import PageHeader from '../page-header/page-header';
 import {cities} from '../../mocks/cities';
@@ -9,6 +9,7 @@ import {Actions} from '../../types/action';
 import {setSelectedPoint} from '../../store/action';
 import {NoOffers} from './no-offers';
 import {OffersContainer} from './offers-container';
+import {locationsFromOffers} from '../../store/reducers/offers-selectors';
 
 const mapStateToProps = ({offers}: State) => ({
   selectedCity: offers.city,
@@ -28,7 +29,7 @@ type ConnectedMainPageProps = ConnectedProps<typeof connector>;
 
 function MainPage(props : ConnectedMainPageProps): JSX.Element {
   const {selectedCity, offers, selectedPoint} = props;
-  const points: Point[] = useMemo(() => offers.map( (o) => locationToPoint(o.location, o.title) ), [offers]);
+  const points: Point[] = locationsFromOffers(offers);
   const selectedCityLocation: Location = selectedCity.location;
 
   return (

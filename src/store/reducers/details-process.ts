@@ -9,7 +9,7 @@ import {
   setReviewSavingStatus
 } from '../action';
 
-const EMPTY_OFFER_DETAILS: OfferDetails = {
+export const EMPTY_OFFER_DETAILS: OfferDetails = {
   offer: undefined,
   comments:[],
   nearPlaces: [],
@@ -19,6 +19,8 @@ const initialState: DetailsState = {
   offerDetails: EMPTY_OFFER_DETAILS,
   review: {comment: '', rating: 0, reviewSavingStatus: OperationStatus.Done},
 };
+
+export const DETAILS_INITIAL_STATE = initialState;
 
 const detailsProcess = createReducer(initialState, (builder) => {
   builder

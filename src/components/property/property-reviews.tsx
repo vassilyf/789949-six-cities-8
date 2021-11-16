@@ -26,7 +26,7 @@ function PropertyReviews({comments, isAuthorized, offerId}: ConnectedPropertyRev
       <ul className="reviews__list">
         {sortedComments.map( (c) => <Review key={c.id} comment={c}/>)}
       </ul>
-      {isAuthorized && offerId ? <FeedbackForm offerId={offerId}/> : null}
+      {isAuthorized && offerId && <FeedbackForm offerId={offerId}/>}
     </section>
   );
 }

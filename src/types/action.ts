@@ -10,7 +10,7 @@ export enum ActionType {
   SetSelectedPoint = 'wheretogo/setSelectedPoint',
   SetAuthInfo = 'wheretogo/setAuthInfo',
   Logout = 'wheretogo/logout',
-  ConfirmAuthorization = 'wheretogo/confirmAuthorization',
+  // ConfirmAuthorization = 'wheretogo/confirmAuthorization',
   Redirect = 'wheretogo/redirect',
   ResetOfferDetails = 'wheretogo/resetofferdetails',
   SetOfferDetails = 'wheretogo/setofferdetails',
@@ -51,10 +51,10 @@ export type LogoutAction = {
   type: ActionType.Logout;
 };
 
-export type ConfirmAuthorizationAction = {
-  type: ActionType.ConfirmAuthorization;
-  payload: AuthInfo;
-};
+// export type ConfirmAuthorizationAction = {
+//   type: ActionType.ConfirmAuthorization;
+//   payload: AuthInfo;
+// };
 
 export type RedirectAction = {
   type: ActionType.Redirect;
@@ -114,7 +114,7 @@ export type Actions =
   | SetSelectedPointAction
   | SetAuthInfoAction
   | LogoutAction
-  | ConfirmAuthorizationAction
+  // | ConfirmAuthorizationAction
   | RedirectAction
   | SetOfferDetailsAction
   | SetNearPlacesAction

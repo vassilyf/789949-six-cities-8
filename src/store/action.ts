@@ -30,9 +30,9 @@ export const logout = createAction(
   ActionType.Logout, () => ({ payload: undefined}),
 );
 
-export const confirmAuthorization = createAction(
-  ActionType.ConfirmAuthorization, (authInfo: AuthInfo) => ({ payload: authInfo}),
-);
+// export const confirmAuthorization = createAction(
+//   ActionType.ConfirmAuthorization, (authInfo: AuthInfo) => ({ payload: authInfo}),
+// );
 
 export const redirectTo = (url: AppRoute): RedirectAction => ({
   type: ActionType.Redirect,
