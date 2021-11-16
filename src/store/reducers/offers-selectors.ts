@@ -12,6 +12,7 @@ export const getOffersForCity = createSelector( (state: OffersState) => state.al
 
 export const citiesDataFromOffers = createSelector( (offers: Offer[]) => offers, (offers) =>
   Object.values(Object.fromEntries(offers.map( (o) => [o.city.name, o.city] ) ) ),
+  // Object.values(offers.map( (o) => [o.city.name, o.city] ) ),
 );
 
 export function locationToPoint(location: Location, title: string) : Point {
