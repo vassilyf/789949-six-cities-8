@@ -31,8 +31,6 @@ export const fetchOfferDetailsAction = (id: string): ThunkActionResult =>
       const {data} = await api.get<Offer>(`${APIRoute.Hotels}/${  id}`);
       dispatch(setOfferDetails(data));
     } catch(e) {
-      // eslint-disable-next-line no-console
-      console.log(e);
       dispatch(redirectTo(AppRoute.NotFoundError) );
     }
   };

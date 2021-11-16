@@ -23,7 +23,7 @@ export function PropertyHostDescription({descriptions, host}: PropertyHostDescri
           </span> : null}
       </div>
       <div className="property__description">
-        {descriptions.map( (d, index) => (
+        {descriptions && descriptions.map( (d, index) => (
           <p key={md5(d)} className="property__text">
             {d}
           </p>) ) }

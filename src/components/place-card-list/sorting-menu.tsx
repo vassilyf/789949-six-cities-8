@@ -52,7 +52,6 @@ function SortingMenu({sortingSelection, onChangeSorting}: ConnectedSortingMenuPr
   const sortingSelectionEnsured = sortingSelection === undefined ? SortingSelection.Popular : sortingSelection;
   const sortingCaption = sortingSelectionList.filter( (i) => (i.key === sortingSelectionEnsured) )[0].value;
   const [menuOpened, setMenuOpened] = useState<boolean>(false);
-  //  places__options--opened
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption"

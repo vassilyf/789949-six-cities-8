@@ -10,9 +10,6 @@ export const redirect: Middleware<unknown, Reducer> =
     (next) =>
       (action) => {
 
-        // eslint-disable-next-line no-console
-        console.log('redirect action');
-
         if (action.type === ActionType.Redirect) {
           browserHistory.push(action.payload);
         }

@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {ThunkAppDispatch} from '../../types/action';
 import {doLogin} from '../../store/api-actions';
-import {store} from '../../index';
 import PageHeader from '../page-header/page-header';
+import {store} from '../../store/store';
 
 function Login(): JSX.Element {
   const [login, setLogin] = useState('');
@@ -25,16 +25,16 @@ function Login(): JSX.Element {
             <h1 className="login__title">Sign in</h1>
             <form className="login__form form" action="#" method="post">
               <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" type="email" name="email" placeholder="Email" required={false}
+                <label className="visually-hidden" htmlFor="email">E-mail</label>
+                <input className="login__input form__input" type="email" name="email" id="email" placeholder="Email" required={false}
                   value={login} onChange={
                     (e) => setLogin(e.target.value)
                   }
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">Password</label>
-                <input className="login__input form__input" type="password" name="password" placeholder="Password" required={false}
+                <label className="visually-hidden" htmlFor="password">Password</label>
+                <input className="login__input form__input" type="password" name="password" id="password" placeholder="Password" required={false}
                   value={password} onChange={
                     (e) => setPassword(e.target.value)
                   }

@@ -1,7 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {AuthState} from '../../types/types';
 import {guest} from '../../const';
-import {confirmAuthorization, logout, setAuthInfo} from '../action';
+import {logout, setAuthInfo} from '../action';
 
 const initialState: AuthState = {
   isAuthorized: false,
@@ -11,10 +11,6 @@ const initialState: AuthState = {
 const authProcess = createReducer(initialState, (builder) => {
   builder
     .addCase(setAuthInfo, (state, action) => {
-      state.isAuthorized = true;
-      state.currentUser = action.payload;
-    })
-    .addCase(confirmAuthorization, (state, action) => {
       state.isAuthorized = true;
       state.currentUser = action.payload;
     })

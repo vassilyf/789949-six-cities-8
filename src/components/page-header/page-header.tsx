@@ -14,7 +14,7 @@ const mapStateToProps = ({auth}: State) => ({
 const connector = connect(mapStateToProps);
 type ConnectedPageHeaderProps = ConnectedProps<typeof connector>;
 
-function PageHeader({currentUser, isAuthorized} : ConnectedPageHeaderProps): JSX.Element {
+export function PageHeader({currentUser, isAuthorized} : ConnectedPageHeaderProps): JSX.Element {
   return (
     <div className="container">
       <div className="header__wrapper">
