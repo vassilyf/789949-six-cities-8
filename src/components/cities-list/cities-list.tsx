@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedCitiesListProps = PropsFromRedux & CitiesListProps;
+export type ConnectedCitiesListProps = PropsFromRedux & CitiesListProps;
 
 function CityItem({city, active, onSelectCity}: CityItemProps): JSX.Element {
   return (

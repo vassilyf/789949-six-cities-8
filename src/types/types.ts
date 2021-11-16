@@ -123,10 +123,6 @@ export type FavoritesState = {
 
 export type State = RootState;
 
-export function locationToPoint(location: Location, title: string) : Point {
-  return {latitude: location.latitude, longitude: location.longitude, zoom: location.zoom, title: title};
-}
-
 export enum OperationStatus {
   InProcess,
   Done
