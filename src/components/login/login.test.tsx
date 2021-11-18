@@ -5,6 +5,7 @@ import {Provider} from 'react-redux';
 import {Router} from 'react-router-dom';
 import Login from './login';
 import {TEST_AUTH_STATE_AUTHORIZED} from '../../mocks/state';
+import userEvent from '@testing-library/user-event';
 
 
 const mockStore = configureMockStore();
@@ -24,5 +25,11 @@ describe('Component: Login', () => {
     );
     expect(screen.getByLabelText('E-mail')).toBeInTheDocument();
     expect(screen.getByLabelText('Password')).toBeInTheDocument();
+
+    userEvent.type(screen.getByLabelText('E-mail'), 'user');
+    userEvent.type(screen.getByLabelText('Password'), '123456');
+
+    expect(screen.getByDisplayValue('user')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('123456')).toBeInTheDocument();
   });
 });

@@ -52,7 +52,7 @@ function Property({offer, nearPlaces, onChangeOfferDetails}: ConnectedPropertyPr
           <PageHeader/>
         </header>
 
-        <main className="page__main page__main--property">
+        <main data-testid="propertyPage"  className="page__main page__main--property">
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">

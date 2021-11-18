@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type ConnecteBookmarkProps = ConnectedProps<typeof connector> & BookmarkProps;
 
-function Bookmark({offer, onSetFavorite, toLogin, isAuthorized}: ConnecteBookmarkProps ): JSX.Element {
+export function Bookmark({offer, onSetFavorite, toLogin, isAuthorized}: ConnecteBookmarkProps ): JSX.Element {
   return (
     <div className="place-card__price-wrapper">
       <div className="place-card__price">
