@@ -1,4 +1,4 @@
-import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 
 import MainPage from '../main-page/main-page';
 import Login from '../login/login';
@@ -11,7 +11,6 @@ import {AppRoute} from '../../const';
 import {State} from '../../types/types';
 import {connect, ConnectedProps} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
-import browserHistory from '../../browser-history';
 
 const mapStateToProps = ({offers, auth}: State) => ({
   isDataLoaded: offers.isDataLoaded,
@@ -27,31 +26,30 @@ function App(props : ConnectedAppProps): JSX.Element {
     return <LoadingScreen/>;
   } else {
     return (
-      <BrowserRouter history={browserHistory}>
-        <Switch>
-          <Route exact path={AppRoute.Main}>
-            <MainPage/>
-          </Route>
-          <PrivateRoute
-            exact
-            path={AppRoute.Favorites}
-            render={() => <Favorites/>}
-          >
-          </PrivateRoute>
-          <Route exact path={AppRoute.Room}>
-            <Property />
-          </Route>
-          <Route exact path={AppRoute.SignIn}>
-            <Login/>
-          </Route>
-          <Route exact path={AppRoute.ApplicationError}>
-            <ErrorPage/>
-          </Route>
-          <Route>
-            <NotFoundPage/>
-          </Route>
-        </Switch>
-      </BrowserRouter>);
+      <Switch>
+        <Route exact path={AppRoute.Main}>
+          <MainPage/>
+        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.Favorites}
+          render={() => <Favorites/>}
+        >
+        </PrivateRoute>
+        <Route exact path={AppRoute.Room}>
+          <Property />
+        </Route>
+        <Route exact path={AppRoute.SignIn}>
+          <Login/>
+        </Route>
+        <Route exact path={AppRoute.ApplicationError}>
+          <ErrorPage/>
+        </Route>
+        <Route>
+          <NotFoundPage/>
+        </Route>
+      </Switch>
+    );
   }
 }
 

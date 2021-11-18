@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type ConnectedFeedbackFormProps = ConnectedProps<typeof connector> & FeedbackFormProps;
 
-function FeedbackForm(props: ConnectedFeedbackFormProps): JSX.Element {
+export function FeedbackForm(props: ConnectedFeedbackFormProps): JSX.Element {
   const {offerId, review, onSaveReview, onChangeReview} = props;
   const submitAvailable = review.comment
     && review.comment.length >= MIN_COMMENT_SIZE
@@ -45,7 +45,7 @@ function FeedbackForm(props: ConnectedFeedbackFormProps): JSX.Element {
     }
   };
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <div className="reviews__form form">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <FiveStars onChangeRating={onChangeRating} rating={review.rating} />
       <textarea className="reviews__textarea form__textarea" id="review" name="review"
@@ -63,7 +63,7 @@ function FeedbackForm(props: ConnectedFeedbackFormProps): JSX.Element {
           Submit
         </button>
       </div>
-    </form>
+    </div>
   );
 }
 

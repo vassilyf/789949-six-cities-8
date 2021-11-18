@@ -28,7 +28,7 @@ const bookmarkOffer = (offers: Offer[], hotelId: number, isFavorite: boolean) =>
 const offersProcess = createReducer(initialState, (builder) => {
   builder
     .addCase(setOffers, (state, action) => {
-      state.allOffers = action.payload; //excludeCityOffersForTesting(action.payload, AMSTERDAM.name);
+      state.allOffers = action.payload;
       state.cityOffers = getOffersForCity(state);
       state.allCitiesData = citiesDataFromOffers(action.payload);
       state.isDataLoaded = true;

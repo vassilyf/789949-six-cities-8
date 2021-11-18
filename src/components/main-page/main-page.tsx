@@ -38,7 +38,7 @@ function MainPage(props : ConnectedMainPageProps): JSX.Element {
         <PageHeader/>
       </header>
 
-      <main className="page__main page__main--index">
+      <main data-testid="mainPage" className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <CitiesMenu cities={cities}  />

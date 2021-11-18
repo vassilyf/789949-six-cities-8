@@ -1,10 +1,11 @@
-import {Offer, State} from '../../types/types';
+import {State} from '../../types/types';
 import {FavoritesCard} from '../favorites-card/favorites-card';
 import PageHeader from '../page-header/page-header';
 import {connect, ConnectedProps} from 'react-redux';
 import {ThunkAppDispatch} from '../../types/action';
 import {fetchFavorites} from '../../store/api-actions';
 import {useEffect} from 'react';
+import {selectFavoritesByCity} from '../../store/reducers/favorites-selectors';
 
 const mapStateToProps = ({favorites}: State) => ({
   favorites: favorites.favorites,
@@ -19,27 +20,12 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type ConnectedPageHeaderProps = ConnectedProps<typeof connector>;
 
-type FavoritesMap = {
-  [key: string]: Offer[],
-}
-
-const getFavoritesByCity = (favorites: Offer[]) =>
-  favorites.reduce( (favoritesMap: FavoritesMap, offer) => {
-    const name: string = offer.city.name;
-    if (! (name in favoritesMap) ) {
-      favoritesMap[offer.city.name] = [];
-    }
-    favoritesMap[offer.city.name].push(offer);
-    return favoritesMap;
-  }, {});
-
-
 function Favorites({favorites, doFetchFavorites}: ConnectedPageHeaderProps): JSX.Element {
   useEffect( () => {
     doFetchFavorites();
   }, [doFetchFavorites]);
 
-  const favoritesByCity = getFavoritesByCity(favorites);
+  const favoritesByCity = selectFavoritesByCity(favorites);
   return (
     <div className="page">
       <header className="header">
