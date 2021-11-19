@@ -14,7 +14,7 @@ import {createAPI} from '../../services/api';
 import {APIRoute} from '../../const';
 
 
-describe('Component: FavoritesCard', () => {
+describe('Component: Favorites', () => {
   it('should render correctly', () => {
     const api = createAPI(jest.fn());
     const mockAPI = new MockAdapter(api);
