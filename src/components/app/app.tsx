@@ -1,4 +1,4 @@
-import {Switch, Route} from 'react-router-dom';
+import {Switch, Route, Redirect} from 'react-router-dom';
 
 import MainPage from '../main-page/main-page';
 import Login from '../login/login';
@@ -21,7 +21,7 @@ const connector = connect(mapStateToProps);
 type ConnectedAppProps = ConnectedProps<typeof connector>;
 
 function App(props : ConnectedAppProps): JSX.Element {
-  const {isDataLoaded} = props;
+  const {isDataLoaded, authorizationStatus} = props;
   if (!isDataLoaded) {
     return <LoadingScreen/>;
   } else {
@@ -36,11 +36,11 @@ function App(props : ConnectedAppProps): JSX.Element {
           render={() => <Favorites/>}
         >
         </PrivateRoute>
-        <Route exact path={AppRoute.Room}>
+        <Route exact path={`${AppRoute.Room}/:id`}>
           <Property />
         </Route>
         <Route exact path={AppRoute.SignIn}>
-          <Login/>
+          {authorizationStatus ? <Redirect to={AppRoute.Main}/> : <Login/>}
         </Route>
         <Route exact path={AppRoute.ApplicationError}>
           <ErrorPage/>

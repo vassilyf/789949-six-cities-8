@@ -4,7 +4,7 @@ export enum AppRoute {
   Main = '/',
   SignIn = '/login',
   Favorites = '/favorites',
-  Room = '/offer/:id',
+  Room = '/offer',
   ApplicationError = '/error',
   NotFoundError = '/not-found',
 }
@@ -35,6 +35,7 @@ export const guest: AuthInfo = {
 
 export const AUTH_FAIL_MESSAGE = 'Ошибка аутентификации';
 export const SAVE_REVIEW_ERROR_MESSAGE = 'Ошибка сохранения комментария';
+export const SAVE_FAVORITE_ERROR_MESSAGE = 'Ошибка сохранения избранного';
 
 export const MAX_COMMENTS_ON_PAGE = 10;
 export const MIN_COMMENT_SIZE = 50;

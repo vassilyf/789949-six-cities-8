@@ -1,6 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {DetailsState, OfferDetails, OperationStatus} from '../../types/types';
 import {
+  markFavorite,
   resetOfferDetails,
   setComments,
   setNearPlaces,
@@ -49,6 +50,12 @@ const detailsProcess = createReducer(initialState, (builder) => {
         rating: action.payload.rating,
         reviewSavingStatus: state.review.reviewSavingStatus,
       };
+    })
+    .addCase(markFavorite, (state, action) => {
+      if (state.offerDetails.offer && state.offerDetails.offer.id === action.payload.hotelId) {
+        // eslint-disable-next-line camelcase
+        state.offerDetails.offer.is_favorite = action.payload.isFavorite;
+      }
     });
 });
 

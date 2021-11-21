@@ -1,19 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {AuthInfo} from '../../types/types';
-import {Dispatch} from 'redux';
-import {Actions} from '../../types/action';
-import {logout} from '../../store/action';
+import {ThunkAppDispatch} from '../../types/action';
 import {connect, ConnectedProps} from 'react-redux';
 import {AppRoute} from '../../const';
+import {doLogout} from '../../store/api-actions';
 
 type UserStatusProps = {
   currentUser: AuthInfo
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   onLogout() {
-    dispatch(logout());
+    dispatch(doLogout());
   },
 });
 
