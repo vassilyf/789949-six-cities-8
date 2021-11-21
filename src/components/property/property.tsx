@@ -8,13 +8,20 @@ import PageHeader from '../page-header/page-header';
 import {connect, ConnectedProps} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import {useParams} from 'react-router-dom';
-import {fetchCommentsAction, fetchNearPlacesAction, fetchOfferDetailsAction} from '../../store/api-actions';
-import {resetOfferDetails} from '../../store/action';
+import {
+  fetchCommentsAction,
+  fetchNearPlacesAction,
+  fetchOfferDetailsAction,
+  saveFavorite
+} from '../../store/api-actions';
+import {redirectTo, resetOfferDetails} from '../../store/action';
 import {ThunkAppDispatch} from '../../types/action';
+import {AppRoute} from '../../const';
 
-const mapStateToProps = ({details}: State) => ({
+const mapStateToProps = ({details, auth}: State) => ({
   offer: details.offerDetails.offer,
   nearPlaces: details.offerDetails.nearPlaces,
+  isAuthorized: auth.isAuthorized,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
@@ -26,6 +33,12 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
       dispatch(fetchCommentsAction(id));
     }
   },
+  onSaveFavorite(hotelId: number, favorite: boolean) {
+    dispatch(saveFavorite(hotelId, favorite));
+  },
+  toLogin() {
+    dispatch(redirectTo(AppRoute.SignIn));
+  },
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -35,7 +48,8 @@ type PropertyParams = {
   id?: string,
 };
 
-function Property({offer, nearPlaces, onChangeOfferDetails}: ConnectedPropertyProps): JSX.Element {
+function Property(props: ConnectedPropertyProps): JSX.Element {
+  const {offer, nearPlaces, onChangeOfferDetails, onSaveFavorite, isAuthorized, toLogin} = props;
   const {id} = useParams<PropertyParams>();
 
   useEffect(() => {
@@ -72,9 +86,12 @@ function Property({offer, nearPlaces, onChangeOfferDetails}: ConnectedPropertyPr
                   <h1 className="property__name">
                     {offer.title}
                   </h1>
-                  <button className="property__bookmark-button button" type="button">
+                  <button className={`property__bookmark-button button ${offer.is_favorite && 'property__bookmark-button--active'}`}
+                    type="button"
+                    onClick={ () => isAuthorized ? onSaveFavorite(offer.id, !offer.is_favorite) : toLogin() }
+                  >
                     <svg className="property__bookmark-icon" width="31" height="33">
-                      <use xlinkHref="/#icon-bookmark"></use>
+                      <use xlinkHref="#icon-bookmark"></use>
                     </svg>
                     <span className="visually-hidden">To bookmarks</span>
                   </button>

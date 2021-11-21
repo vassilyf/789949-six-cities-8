@@ -1,5 +1,7 @@
 import {Offer} from '../../types/types';
 import Bookmark from '../place-card/bookmark';
+import { Link } from 'react-router-dom';
+import {AppRoute} from '../../const';
 
 type FavoritesCardProps = {
   offer: Offer
@@ -9,9 +11,9 @@ function FavoritesCard({offer}: FavoritesCardProps): JSX.Element {
   return (
     <article className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <a href="/#">
+        <Link to={`${AppRoute.Room}/${offer.id}`}>
           <img className="place-card__image" src={offer.images[0]} width="150" height="110"  alt="Place"/>
-        </a>
+        </Link>
       </div>
       <div className="favorites__card-info place-card__info">
         <Bookmark offer={offer}/>
@@ -22,7 +24,7 @@ function FavoritesCard({offer}: FavoritesCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/#">{offer.title}</a>
+          <Link to={`${AppRoute.Room}/${offer.id}`} >{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>

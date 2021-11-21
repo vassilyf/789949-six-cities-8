@@ -1,6 +1,6 @@
 import {createAPI} from '../../services/api';
 import thunk, {ThunkDispatch} from 'redux-thunk';
-import {TEST_AMSTERDAM_OFFERS} from '../../mocks/offers';
+import {TEST_AMSTERDAM_OFFERS, TEST_PARIS_OFFERS} from '../../mocks/offers';
 import {AppRoute} from '../../const';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {State} from '../../types/types';
@@ -73,7 +73,7 @@ describe('Component: App', () => {
 
   it('should render room details page on /room path', () => {
     store.getState().auth = TEST_AUTH_STATE_INITIAL;
-    history.push(AppRoute.Room);
+    history.push(`${AppRoute.Room}/${TEST_PARIS_OFFERS[0].id}`);
     render(fakeApp);
     expect(screen.getByTestId('propertyPage')).toBeInTheDocument();
   });
