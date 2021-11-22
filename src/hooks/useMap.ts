@@ -1,5 +1,5 @@
 import {useEffect, useState, MutableRefObject} from 'react';
-import {Map, TileLayer} from 'leaflet';
+import L, {Map, TileLayer} from 'leaflet';
 import {Location} from '../types/types';
 
 function useMap(
@@ -15,7 +15,7 @@ function useMap(
           lat: cityLocation.latitude,
           lng: cityLocation.longitude,
         },
-        zoom: 10,
+        zoom: 12,
       });
 
       const layer = new TileLayer(
@@ -28,8 +28,10 @@ function useMap(
       instance.addLayer(layer);
 
       setMap(instance);
+    } else if (map !== null) {
+      map.setView(new L.LatLng(cityLocation.latitude, cityLocation.longitude), 12);
     }
-  }, [mapRef, map, cityLocation]);
+  }, [mapRef, map, cityLocation.latitude, cityLocation.longitude]);
 
   return map;
 }

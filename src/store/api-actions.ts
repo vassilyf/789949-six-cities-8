@@ -1,5 +1,5 @@
 import {ThunkActionResult} from '../types/action';
-import {APIRoute, AppRoute, AUTH_FAIL_MESSAGE, SAVE_REVIEW_ERROR_MESSAGE} from '../const';
+import {APIRoute, AppRoute, AUTH_FAIL_MESSAGE, SAVE_FAVORITE_ERROR_MESSAGE, SAVE_REVIEW_ERROR_MESSAGE} from '../const';
 import {
   selectCity,
   setAuthInfo,
@@ -77,7 +77,7 @@ export const saveFavorite = (hotelId: number, isFavorite: boolean): ThunkActionR
       dispatch(fetchFavorites());
       dispatch(markFavorite({hotelId: hotelId, isFavorite: isFavorite} ));
     } catch {
-      toast.info(AUTH_FAIL_MESSAGE);
+      toast.info(SAVE_FAVORITE_ERROR_MESSAGE);
     }
   };
 
