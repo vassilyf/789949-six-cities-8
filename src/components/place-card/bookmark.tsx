@@ -33,11 +33,11 @@ export function Bookmark({offer, onSetFavorite, toLogin, isAuthorized}: Connecte
         <b className="place-card__price-value">&euro;{offer.price}</b>
         <span className="place-card__price-text">&#47;&nbsp;night</span>
       </div>
-      <button className={`place-card__bookmark-button ${offer.is_favorite ? 'place-card__bookmark-button--active' : ''} button`} type="button"
+      <button className={`place-card__bookmark-button ${offer.is_favorite && 'place-card__bookmark-button--active'} button`} type="button"
         onClick={ () => isAuthorized ? onSetFavorite(offer.id, !offer.is_favorite) : toLogin() }
       >
         <svg className="place-card__bookmark-icon" width="18" height="19">
-          <use xlinkHref="/#icon-bookmark"></use>
+          <use xlinkHref="#icon-bookmark"></use>
         </svg>
         <span className="visually-hidden">{offer.is_favorite ? 'In bookmarks' : 'To bookmarks'}</span>
       </button>
