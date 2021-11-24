@@ -155,10 +155,6 @@ describe('Async actions', () => {
     const comments = [...TEST_COMMENT_GET_RESULT, ...TEST_COMMENT_GET_RESULT2];
     mockAPI
       .onPost(`${APIRoute.Comments}/${hotelId}`)
-      .reply(200, []);
-
-    mockAPI
-      .onGet(`${APIRoute.Comments}/${hotelId}`)
       .reply(200, comments);
 
     expect(store.getActions()).toEqual([]);
@@ -166,6 +162,7 @@ describe('Async actions', () => {
 
     expect(store.getActions()).toEqual([
       setReviewSavingStatus(OperationStatus.InProcess),
+      setComments(comments),
       setReviewSavingStatus(OperationStatus.Done),
     ]);
   });

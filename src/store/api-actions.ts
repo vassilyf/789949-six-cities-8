@@ -120,6 +120,7 @@ export const doLogin = (authUser: AuthUser): ThunkActionResult =>
       saveToken(data.token);
       dispatch(setAuthInfo(data));
       dispatch(redirectTo(AppRoute.Main));
+      dispatch(fetchOffersAction());
     } catch {
       toast.error(AUTH_FAIL_MESSAGE);
     }
@@ -130,4 +131,5 @@ export const doLogout = (): ThunkActionResult =>
     await api.delete(APIRoute.Logout);
     dropToken();
     dispatch(logout());
+    dispatch(fetchOffersAction());
   };
