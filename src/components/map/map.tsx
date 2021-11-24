@@ -12,16 +12,11 @@ type MapProps = {
 
 const defaultCustomIcon = new Icon({
   iconUrl: 'img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
 });
 
 const currentCustomIcon = new Icon({
   iconUrl: 'img/pin-active.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
 });
-
 
 export function Map(props: MapProps): JSX.Element {
   const {city, points, selectedPoint} = props;
@@ -49,5 +44,5 @@ export function Map(props: MapProps): JSX.Element {
     }
   }, [map, points, selectedPoint]);
 
-  return <div style={{height: '500px'}} ref={mapRef}></div>;
+  return <div style={{height: '100%', width: '100%'}} ref={mapRef}></div>;
 }

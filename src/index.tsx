@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import App from './components/app/app';
 import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {store} from './store/store';
 import browserHistory from './browser-history';
 import {Router as BrowserRouter} from 'react-router-dom';

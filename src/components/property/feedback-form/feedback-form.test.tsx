@@ -1,10 +1,10 @@
-import {TEST_AMSTERDAM_OFFERS} from '../../mocks/offers';
+import {TEST_AMSTERDAM_OFFERS} from '../../../mocks/offers';
 import {render, screen} from '@testing-library/react';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import {TEST_AUTH_INFO} from '../../mocks/auth';
+import {TEST_AUTH_INFO} from '../../../mocks/auth';
 import FeedbackForm, {FeedbackForm as RawFeedbackForm} from './feedback-form';
-import {DETAILS_CHOSEN_STATE, FILLED_REVIEW} from '../../mocks/state';
-import {OperationStatus, Review} from '../../types/types';
+import {DETAILS_CHOSEN_STATE, FILLED_REVIEW} from '../../../mocks/state';
+import {OperationStatus, Review} from '../../../types/types';
 import {lorem} from 'faker';
 import userEvent from '@testing-library/user-event';
 import {Provider} from 'react-redux';

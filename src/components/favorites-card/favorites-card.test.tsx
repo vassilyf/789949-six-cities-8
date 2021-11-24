@@ -1,5 +1,5 @@
 import {render, screen} from '@testing-library/react';
-import {FavoritesCard} from './favorites-card';
+import FavoritesCard from './favorites-card';
 import {TEST_PARIS_OFFERS} from '../../mocks/offers';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {TEST_AUTH_STATE_INITIAL} from '../../mocks/state';

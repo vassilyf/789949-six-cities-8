@@ -18,10 +18,11 @@ describe('Component: Bookmark', () => {
     const history = createMemoryHistory();
     const offer = TEST_AMSTERDAM_OFFERS[0];
     expect(offer.is_favorite).toEqual(true);
+    const onSaveFavorite = jest.fn();
     render(
       <Provider store={store}>
         <Router history={history}>
-          <Bookmark offer={offer} />
+          <Bookmark offer={offer} onSaveFavorite={onSaveFavorite} />
         </Router>
       </Provider>,
     );
@@ -31,34 +32,34 @@ describe('Component: Bookmark', () => {
   it('save to favorites, authorized state', () => {
     const offer = TEST_AMSTERDAM_OFFERS[0];
     expect(offer.is_favorite).toEqual(true);
-    const onSetFavorite = jest.fn();
-    const toLogin = jest.fn();
+    const onSaveFavorite = jest.fn();
+    const onToLogin = jest.fn();
     render(
-      <RawBookmark offer={offer} isAuthorized onSetFavorite={onSetFavorite} toLogin={toLogin}/>,
+      <RawBookmark offer={offer} isAuthorized onSaveFavorite={onSaveFavorite} onToLogin={onToLogin}/>,
     );
     expect(screen.getByText('In bookmarks')).toBeInTheDocument();
 
     userEvent.click(screen.getByRole('button'));
 
-    expect(onSetFavorite).toBeCalled();
-    expect(onSetFavorite).nthCalledWith(1, offer.id, !offer.is_favorite);
-    expect(toLogin).not.toBeCalled();
+    expect(onSaveFavorite).toBeCalled();
+    expect(onSaveFavorite).nthCalledWith(1, offer.id, !offer.is_favorite);
+    expect(onToLogin).not.toBeCalled();
   });
 
   it('save to favorites, unauthorized state', () => {
     const offer = TEST_AMSTERDAM_OFFERS[0];
     expect(offer.is_favorite).toEqual(true);
-    const onSetFavorite = jest.fn();
-    const toLogin = jest.fn();
+    const onSaveFavorite = jest.fn();
+    const onToLogin = jest.fn();
     render(
-      <RawBookmark offer={offer} isAuthorized={false} onSetFavorite={onSetFavorite} toLogin={toLogin}/>,
+      <RawBookmark offer={offer} isAuthorized={false} onSaveFavorite={onSaveFavorite} onToLogin={onToLogin}/>,
     );
     expect(screen.getByText('In bookmarks')).toBeInTheDocument();
 
     userEvent.click(screen.getByRole('button'));
 
-    expect(toLogin).toBeCalled();
-    expect(onSetFavorite).not.toBeCalled();
+    expect(onToLogin).toBeCalled();
+    expect(onSaveFavorite).not.toBeCalled();
   });
 
 });

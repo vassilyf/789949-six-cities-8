@@ -2,10 +2,11 @@ import {createReducer} from '@reduxjs/toolkit';
 import {Offer, OffersState, SortingSelection} from '../../types/types';
 import {selectCity, setOffers, setSelectedPoint, setSortingSelection, markFavorite} from '../action';
 import {PARIS} from '../../mocks/cities';
-import {citiesDataFromOffers, getCityWithLocation, getOffersForCity} from './offers-selectors';
+import {getCitiesDataFromOffers, getCityWithLocation, getOffersForCity} from './offers-selectors';
+import {CITIES} from '../../const';
 
 const initialState: OffersState = {
-  allCitiesNames: [PARIS.name, 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'],
+  allCitiesNames: CITIES,
   allCitiesData: [],
   allOffers: [],
   city: PARIS,
@@ -30,7 +31,7 @@ const offersProcess = createReducer(initialState, (builder) => {
     .addCase(setOffers, (state, action) => {
       state.allOffers = action.payload;
       state.cityOffers = getOffersForCity(state);
-      state.allCitiesData = citiesDataFromOffers(action.payload);
+      state.allCitiesData = getCitiesDataFromOffers(action.payload);
       state.isDataLoaded = true;
     })
     .addCase(selectCity, (state, action) => {

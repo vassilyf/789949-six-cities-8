@@ -1,5 +1,11 @@
 import {ThunkActionResult} from '../types/action';
-import {APIRoute, AppRoute, AUTH_FAIL_MESSAGE, SAVE_FAVORITE_ERROR_MESSAGE, SAVE_REVIEW_ERROR_MESSAGE} from '../const';
+import {
+  APIRoute,
+  AppRoute,
+  AUTH_FAIL_MESSAGE, GET_SERVER_DATA_ERROR_MESSAGE,
+  SAVE_FAVORITE_ERROR_MESSAGE,
+  SAVE_REVIEW_ERROR_MESSAGE
+} from '../const';
 import {
   selectCity,
   setAuthInfo,
@@ -15,14 +21,19 @@ import {
 import {Offer, AuthInfo, AuthUser, RawComment, CommentPost, OperationStatus} from '../types/types';
 import {PARIS} from '../mocks/cities';
 import {toast} from 'react-toastify';
-import {commentAdapter} from './adapters/comment-adapter';
+import {adaptComment} from './adapters/adapt-comment';
 import {dropToken, saveToken} from '../services/token';
 
 export const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
-    const {data} = await api.get<Offer[]>(APIRoute.Hotels);
-    dispatch(setOffers(data));
-    dispatch(selectCity(PARIS.name));
+    try {
+      const {data} = await api.get<Offer[]>(APIRoute.Hotels);
+      dispatch(setOffers(data));
+      dispatch(selectCity(PARIS.name));
+    } catch {
+      toast.error(GET_SERVER_DATA_ERROR_MESSAGE);
+      dispatch(setOffers([]));
+    }
   };
 
 export const fetchOfferDetailsAction = (id: string): ThunkActionResult =>
@@ -44,7 +55,7 @@ export const fetchNearPlacesAction = (id: string): ThunkActionResult =>
 export const fetchCommentsAction = (id: string): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const {data} = await api.get<RawComment[]>(`${APIRoute.Comments}/${ id}`);
-    const comments = data.map( (d) => commentAdapter(d));
+    const comments = data.map( (d) => adaptComment(d));
     dispatch(setComments(comments));
   };
 
@@ -56,11 +67,13 @@ export const saveReview = (hotelId: string, rating: number, comment: string): Th
       rating: rating,
     };
     try {
-      await api.post(`${APIRoute.Comments}/${hotelId}`, postData);
-      dispatch(fetchCommentsAction(hotelId));
+      const {data} = await api.post<RawComment[]>(`${APIRoute.Comments}/${hotelId}`, postData);
+      const comments = data.map( (d) => adaptComment(d));
+      dispatch(setComments(comments));
       dispatch(setReviewSavingStatus(OperationStatus.Done));
     } catch {
-      toast.info(SAVE_REVIEW_ERROR_MESSAGE);
+      toast.error(SAVE_REVIEW_ERROR_MESSAGE);
+      dispatch(setReviewSavingStatus(OperationStatus.Done));
     }
   };
 
@@ -74,13 +87,21 @@ export const saveFavorite = (hotelId: number, isFavorite: boolean): ThunkActionR
   async (dispatch, _getState, api): Promise<void> => {
     try {
       await api.post<AuthInfo>(`${APIRoute.Favorite}/${hotelId}/${isFavorite ? 1 : 0}`);
-      dispatch(fetchFavorites());
       dispatch(markFavorite({hotelId: hotelId, isFavorite: isFavorite} ));
     } catch {
-      toast.info(SAVE_FAVORITE_ERROR_MESSAGE);
+      toast.error(SAVE_FAVORITE_ERROR_MESSAGE);
     }
   };
 
+export const removeFavorite = (hotelId: number): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    try {
+      await api.post<AuthInfo>(`${APIRoute.Favorite}/${hotelId}/0}`);
+      dispatch(fetchFavorites());
+    } catch {
+      toast.error(SAVE_FAVORITE_ERROR_MESSAGE);
+    }
+  };
 
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
@@ -100,7 +121,7 @@ export const doLogin = (authUser: AuthUser): ThunkActionResult =>
       dispatch(setAuthInfo(data));
       dispatch(redirectTo(AppRoute.Main));
     } catch {
-      toast.info(AUTH_FAIL_MESSAGE);
+      toast.error(AUTH_FAIL_MESSAGE);
     }
   };
 

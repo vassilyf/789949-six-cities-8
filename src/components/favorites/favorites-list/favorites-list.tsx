@@ -1,6 +1,6 @@
-import {FavoritesCard} from '../favorites-card/favorites-card';
-import {selectFavoritesByCity} from '../../store/reducers/favorites-selectors';
-import {Offer} from '../../types/types';
+import FavoritesCard from '../../favorites-card/favorites-card';
+import {selectFavoritesByCity} from '../../../store/reducers/favorites-selectors';
+import {Offer} from '../../../types/types';
 
 type FavoritesListProps = {
   favorites: Offer[]

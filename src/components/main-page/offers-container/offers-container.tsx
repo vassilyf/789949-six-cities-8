@@ -1,7 +1,7 @@
 import React from 'react';
-import SortedPlaceCardList from '../place-card-list/place-card-list';
-import {Map} from '../map/map';
-import {City, Offer, Point, Location} from '../../types/types';
+import SortedPlaceCardList from '../../place-card-list/place-card-list';
+import {Map} from '../../map/map';
+import {City, Offer, Point, Location} from '../../../types/types';
 
 type OffersContainerProps = {
   offers: Offer[],

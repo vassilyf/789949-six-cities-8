@@ -2,8 +2,8 @@ import React from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {State} from '../../types/types';
 import {AppRoute} from '../../const';
-import UserStatus from './user-status';
-import { LoginLink } from './login-link';
+import UserStatus from './user-status/user-status';
+import { LoginLink } from './login-link/login-link';
 import { Link } from 'react-router-dom';
 
 const mapStateToProps = ({auth}: State) => ({

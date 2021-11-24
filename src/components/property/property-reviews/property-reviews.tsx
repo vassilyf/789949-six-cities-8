@@ -1,8 +1,8 @@
-import {State} from '../../types/types';
-import FeedbackForm from './feedback-form';
-import {Review} from './review';
+import {State} from '../../../types/types';
+import FeedbackForm from '../feedback-form/feedback-form';
+import {Review} from '../review/review';
 import {connect, ConnectedProps} from 'react-redux';
-import {MAX_COMMENTS_ON_PAGE} from '../../const';
+import {MAX_COMMENTS_ON_PAGE} from '../../../const';
 
 const mapStateToProps = ({auth, details}: State) => ({
   comments: details.offerDetails.comments,

@@ -1,5 +1,5 @@
 import React from 'react';
-import {City} from '../../types/types';
+import {City} from '../../../types/types';
 
 type NoOffersProps = {
   selectedCity: City

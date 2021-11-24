@@ -1,10 +1,10 @@
 import {render, screen} from '@testing-library/react';
 import {FavoritesList} from './favorites-list';
-import {TEST_AMSTERDAM_OFFERS} from '../../mocks/offers';
+import {TEST_AMSTERDAM_OFFERS} from '../../../mocks/offers';
 import {Provider} from 'react-redux';
 import {Router} from 'react-router-dom';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import {TEST_AUTH_STATE_INITIAL} from '../../mocks/state';
+import {TEST_AUTH_STATE_INITIAL} from '../../../mocks/state';
 import {createMemoryHistory} from 'history';
 
 describe('Component: FavoritesList', () => {

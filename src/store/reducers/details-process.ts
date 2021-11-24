@@ -56,6 +56,13 @@ const detailsProcess = createReducer(initialState, (builder) => {
         // eslint-disable-next-line camelcase
         state.offerDetails.offer.is_favorite = action.payload.isFavorite;
       }
+
+      for (const np of state.offerDetails.nearPlaces) {
+        if (np.id === action.payload.hotelId) {
+          // eslint-disable-next-line camelcase
+          np.is_favorite = action.payload.isFavorite;
+        }
+      }
     });
 });
 

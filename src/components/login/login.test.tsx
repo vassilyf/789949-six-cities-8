@@ -6,11 +6,13 @@ import {Router} from 'react-router-dom';
 import Login from './login';
 import {TEST_AUTH_STATE_AUTHORIZED} from '../../mocks/state';
 import userEvent from '@testing-library/user-event';
+import {OFFERS_INITIAL_STATE} from '../../store/reducers/offers-process';
 
 
 const mockStore = configureMockStore();
 const store = mockStore({
   auth: TEST_AUTH_STATE_AUTHORIZED,
+  offers: OFFERS_INITIAL_STATE,
 });
 
 describe('Component: Login', () => {

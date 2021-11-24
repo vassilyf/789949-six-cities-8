@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import {PropertyHostDescription} from './property-host-description';
-import {TEST_AUTH_INFO} from '../../mocks/auth';
+import {TEST_AUTH_INFO} from '../../../mocks/auth';
 
 describe('Component: PropertyHostDescription', () => {
   it('should render correctly', () => {

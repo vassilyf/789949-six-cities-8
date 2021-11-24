@@ -1,24 +1,20 @@
 import {Offer, State} from '../../types/types';
 import {ThunkAppDispatch} from '../../types/action';
-import {saveFavorite} from '../../store/api-actions';
 import {connect, ConnectedProps} from 'react-redux';
-import {AppRoute} from '../../const';
+import {AppRoute, BOOKMARK_IN_BOOKMARKS, BOOKMARK_TO_BOOKMARKS} from '../../const';
 import {redirectTo} from '../../store/action';
 
 export type BookmarkProps = {
-  offer: Offer
+  offer: Offer,
+  onSaveFavorite: (hotelId: number, isFavorite: boolean) => void
 }
 
 const mapStateToProps = ({auth}: State) => ({
   isAuthorized: auth.isAuthorized,
 });
 
-
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onSetFavorite(hotelId: number, isFavorite: boolean) {
-    dispatch(saveFavorite(hotelId, isFavorite));
-  },
-  toLogin() {
+  onToLogin() {
     dispatch(redirectTo(AppRoute.SignIn));
   },
 });
@@ -26,7 +22,7 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type ConnecteBookmarkProps = ConnectedProps<typeof connector> & BookmarkProps;
 
-export function Bookmark({offer, onSetFavorite, toLogin, isAuthorized}: ConnecteBookmarkProps ): JSX.Element {
+export function Bookmark({offer, onSaveFavorite, onToLogin, isAuthorized}: ConnecteBookmarkProps ): JSX.Element {
   return (
     <div className="place-card__price-wrapper">
       <div className="place-card__price">
@@ -34,12 +30,12 @@ export function Bookmark({offer, onSetFavorite, toLogin, isAuthorized}: Connecte
         <span className="place-card__price-text">&#47;&nbsp;night</span>
       </div>
       <button className={`place-card__bookmark-button ${offer.is_favorite && 'place-card__bookmark-button--active'} button`} type="button"
-        onClick={ () => isAuthorized ? onSetFavorite(offer.id, !offer.is_favorite) : toLogin() }
+        onClick={ () => isAuthorized ? onSaveFavorite(offer.id, !offer.is_favorite) : onToLogin() }
       >
         <svg className="place-card__bookmark-icon" width="18" height="19">
           <use xlinkHref="#icon-bookmark"></use>
         </svg>
-        <span className="visually-hidden">{offer.is_favorite ? 'In bookmarks' : 'To bookmarks'}</span>
+        <span className="visually-hidden">{offer.is_favorite ? BOOKMARK_IN_BOOKMARKS : BOOKMARK_TO_BOOKMARKS}</span>
       </button>
     </div>
   );

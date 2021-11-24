@@ -4,8 +4,8 @@ import {connect, ConnectedProps} from 'react-redux';
 import {ThunkAppDispatch} from '../../types/action';
 import {fetchFavorites} from '../../store/api-actions';
 import {useEffect} from 'react';
-import {FavoritesEmpty} from './favorites-empty';
-import {FavoritesList} from './favorites-list';
+import {FavoritesEmpty} from './favorites-empty/favorites-empty';
+import {FavoritesList} from './favorites-list/favorites-list';
 
 const mapStateToProps = ({favorites}: State) => ({
   favorites: favorites.favorites,

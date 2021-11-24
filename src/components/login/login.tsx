@@ -3,10 +3,30 @@ import {ThunkAppDispatch} from '../../types/action';
 import {doLogin} from '../../store/api-actions';
 import PageHeader from '../page-header/page-header';
 import {store} from '../../store/store';
+import {State} from '../../types/types';
+import {connect, ConnectedProps} from 'react-redux';
+import {redirectTo, selectCity} from '../../store/action';
+import {AppRoute} from '../../const';
 
-function Login(): JSX.Element {
+const mapStateToProps = ({offers}: State) => ({
+  allCitiesNames: offers.allCitiesNames,
+});
+
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  goToCity(cityName: string) {
+    dispatch(redirectTo(AppRoute.Main));
+    dispatch(selectCity(cityName));
+  },
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type ConnectedLoginProps = ConnectedProps<typeof connector>;
+
+function Login({allCitiesNames, goToCity}: ConnectedLoginProps): JSX.Element {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+
+  const randomCity = allCitiesNames[Math.floor(Math.random() * allCitiesNames.length)];
 
   const onSubmitLogin = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
@@ -45,8 +65,8 @@ function Login(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="/#">
-                <span>Amsterdam</span>
+              <a className="locations__item-link" href="/#" onClick={ (e) => goToCity(randomCity) } >
+                <span>{randomCity}</span>
               </a>
             </div>
           </section>
@@ -56,4 +76,4 @@ function Login(): JSX.Element {
   );
 }
 
-export default Login;
+export default connector(Login);

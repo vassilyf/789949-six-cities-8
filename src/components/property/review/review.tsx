@@ -1,4 +1,4 @@
-import {Comment} from '../../types/types';
+import {Comment} from '../../../types/types';
 
 type ReviewsProps = {
   comment: Comment,
@@ -7,7 +7,7 @@ type ReviewsProps = {
 export function Review({comment}: ReviewsProps): JSX.Element {
   const dt = comment.date;
   const commentDate = `${dt.getFullYear()}-${dt.getMonth()}-${dt.getDay()}`;
-  const commentMonth = `${dt.toLocaleString('default', { month: 'long' })} ${dt.getFullYear()}`;
+  const commentMonth = `${dt.toLocaleString('en-GB', { month: 'long' })} ${dt.getFullYear()}`;
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -19,7 +19,7 @@ export function Review({comment}: ReviewsProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: '80%'}}></span>
+            <span style={{width: `${comment.rating/5*100}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

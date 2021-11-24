@@ -1,6 +1,6 @@
 import {RawComment, Comment} from '../../types/types';
 
-export const commentAdapter = (rawComment: RawComment) : Comment =>
+export const adaptComment = (rawComment: RawComment) : Comment =>
   ({...rawComment, date: new Date(Date.parse(rawComment.date) )});
 
 

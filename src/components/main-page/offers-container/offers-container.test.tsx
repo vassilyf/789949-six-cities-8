@@ -1,12 +1,12 @@
 import {render, screen} from '@testing-library/react';
 import {OffersContainer} from './offers-container';
-import {OFFERS_FILLED_STATE} from '../../mocks/state';
-import {locationsFromOffers} from '../../store/reducers/offers-selectors';
+import {OFFERS_FILLED_STATE} from '../../../mocks/state';
+import {getLocationsFromOffers} from '../../../store/reducers/offers-selectors';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Provider} from 'react-redux';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
-import {TEST_AUTH_INFO} from '../../mocks/auth';
+import {TEST_AUTH_INFO} from '../../../mocks/auth';
 
 const mockStore = configureMockStore();
 const store = mockStore({
@@ -26,7 +26,7 @@ describe('Component: OffersContainer', () => {
             selectedCity={offers.city}
             selectedCityLocation={offers.city.location}
             selectedPoint={offers.selectedPoint}
-            points={locationsFromOffers(offers.cityOffers)}
+            points={getLocationsFromOffers(offers.cityOffers)}
           />
         </Router>
       </Provider>);

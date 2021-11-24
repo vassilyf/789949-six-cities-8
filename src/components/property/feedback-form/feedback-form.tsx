@@ -1,11 +1,11 @@
 import React from 'react';
-import {ThunkAppDispatch} from '../../types/action';
-import {saveReview} from '../../store/api-actions';
+import {ThunkAppDispatch} from '../../../types/action';
+import {saveReview} from '../../../store/api-actions';
 import {connect, ConnectedProps} from 'react-redux';
-import {MIN_COMMENT_SIZE, MAX_COMMENT_SIZE} from '../../const';
-import {OperationStatus, Review, State} from '../../types/types';
-import {setReview} from '../../store/action';
-import {FiveStars} from './five-stars';
+import {MIN_COMMENT_SIZE, MAX_COMMENT_SIZE} from '../../../const';
+import {OperationStatus, Review, State} from '../../../types/types';
+import {setReview} from '../../../store/action';
+import {FiveStars} from '../../five-stars/five-stars';
 
 type FeedbackFormProps = {
   offerId: number
@@ -33,6 +33,7 @@ export function FeedbackForm(props: ConnectedFeedbackFormProps): JSX.Element {
   const submitAvailable = review.comment
     && review.comment.length >= MIN_COMMENT_SIZE
     && review.comment.length <= MAX_COMMENT_SIZE
+    && review.rating > 0
     && review.reviewSavingStatus !== OperationStatus.InProcess;
   const onChangeRating = (r: number) => {
     if (review.reviewSavingStatus !== OperationStatus.InProcess) {

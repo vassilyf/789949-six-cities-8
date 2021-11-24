@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import {Review} from './review';
-import {TEST_COMMENT_GET_RESULT} from '../../mocks/comments';
+import {TEST_COMMENT_GET_RESULT} from '../../../mocks/comments';
 
 describe('Component: Review', () => {
   it('should render correctly', () => {

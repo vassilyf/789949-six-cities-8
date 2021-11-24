@@ -1,7 +1,7 @@
 import UniversalPlaceCard, {WrapperType} from '../place-card/place-card';
 import {Offer, State} from '../../types/types';
 import React, {useMemo} from 'react';
-import SortingMenu, {getOffersSortingFunction} from './sorting-menu';
+import SortingMenu, {getOffersSortingFunction} from './sorting-menu/sorting-menu';
 import {connect, ConnectedProps} from 'react-redux';
 
 type PlaceCardListProps = {

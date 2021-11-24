@@ -10,13 +10,14 @@ export const getOffersForCity = createSelector( (state: OffersState) => state.al
   (offers, cityName) => offers.filter( (o) => o.city.name === cityName),
 );
 
-export const citiesDataFromOffers = createSelector( (offers: Offer[]) => offers, (offers) =>
+export const getCitiesDataFromOffers = createSelector( (offers: Offer[]) => offers, (offers) =>
   Object.values(Object.fromEntries(offers.map( (o) => [o.city.name, o.city] ) ) ),
 );
 
-export function locationToPoint(location: Location, title: string) : Point {
+export function getPointFromLocation(location: Location, title: string) : Point {
   return {latitude: location.latitude, longitude: location.longitude, zoom: location.zoom, title: title};
 }
 
-export const locationsFromOffers = createSelector((offers: Offer[]) => offers,
-  (offers) => offers.map( (o) => locationToPoint(o.location, o.title) ) );
+export const getLocationsFromOffers = createSelector((offers: Offer[]) => offers,
+  (offers) => offers.map( (o) => getPointFromLocation(o.location, o.title) ) );
+

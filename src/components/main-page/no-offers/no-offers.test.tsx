@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import {NoOffers} from './no-offers';
-import {AMSTERDAM} from '../../mocks/cities';
+import {AMSTERDAM} from '../../../mocks/cities';
 
 
 describe('Component: NoOffers', () => {

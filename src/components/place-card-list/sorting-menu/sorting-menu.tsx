@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {Offer, SortingSelection} from '../../types/types';
+import {Offer, SortingSelection} from '../../../types/types';
 import {Dispatch} from 'redux';
-import {Actions} from '../../types/action';
+import {Actions} from '../../../types/action';
 import {connect, ConnectedProps} from 'react-redux';
-import {setSortingSelection} from '../../store/action';
+import {setSortingSelection} from '../../../store/action';
 
 type SortingMenuProps = {
   sortingSelection: SortingSelection
@@ -29,17 +29,17 @@ const sortingSelectionList = [
   {
     key: SortingSelection.LowToHigh,
     value: 'Price: low to high',
-    sortingFunction: function(o1: Offer, o2: Offer) {return o2.price - o1.price;},
+    sortingFunction: function(o1: Offer, o2: Offer) {return o1.price - o2.price;},
   },
   {
     key: SortingSelection.HighToLow,
     value: 'Price: high to low',
-    sortingFunction: function(o1: Offer, o2: Offer) {return o1.price - o2.price;},
+    sortingFunction: function(o1: Offer, o2: Offer) {return o2.price - o1.price;},
   },
   {
     key: SortingSelection.TopRated,
     value: 'Top rated first',
-    sortingFunction: function(o1: Offer, o2: Offer) {return o1.rating - o2.rating;},
+    sortingFunction: function(o1: Offer, o2: Offer) {return o2.rating - o1.rating;},
   },
 ];
 
@@ -54,16 +54,15 @@ function SortingMenu({sortingSelection, onChangeSorting}: ConnectedSortingMenuPr
   const [menuOpened, setMenuOpened] = useState<boolean>(false);
   return (
     <form className="places__sorting" action="#" method="get">
-      <span className="places__sorting-caption"
-        onMouseEnter={ (e) => {setMenuOpened(true); } }
-      >
-        Sort by {sortingCaption}
-      </span>
-      <span className="places__sorting-type" tabIndex={0}>
-        <svg className="places__sorting-arrow" width="7" height="4">
-          <use xlinkHref="/#icon-arrow-select"></use>
-        </svg>
-      </span>
+      <div onMouseEnter={ (e) => {setMenuOpened(true); } }>
+        <span className="places__sorting-caption">Sort by</span>&nbsp;
+        <span className="places__sorting-type" tabIndex={0} data-testid='sorting-caption'>
+          {sortingCaption}
+          <svg className="places__sorting-arrow" width="7" height="4">
+            <use xlinkHref="/#icon-arrow-select"></use>
+          </svg>
+        </span>
+      </div>
       <ul className={`places__options places__options--custom ${menuOpened  ? 'places__options--opened' : ''}`} >
         {sortingSelectionList.map( (el) =>
           (

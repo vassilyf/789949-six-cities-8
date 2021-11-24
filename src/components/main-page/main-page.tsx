@@ -7,9 +7,9 @@ import {connect, ConnectedProps} from 'react-redux';
 import {Dispatch} from 'redux';
 import {Actions} from '../../types/action';
 import {setSelectedPoint} from '../../store/action';
-import {NoOffers} from './no-offers';
-import {OffersContainer} from './offers-container';
-import {locationsFromOffers} from '../../store/reducers/offers-selectors';
+import {NoOffers} from './no-offers/no-offers';
+import {OffersContainer} from './offers-container/offers-container';
+import {getLocationsFromOffers} from '../../store/reducers/offers-selectors';
 
 const mapStateToProps = ({offers}: State) => ({
   selectedCity: offers.city,
@@ -29,7 +29,7 @@ type ConnectedMainPageProps = ConnectedProps<typeof connector>;
 
 function MainPage(props : ConnectedMainPageProps): JSX.Element {
   const {selectedCity, offers, selectedPoint} = props;
-  const points: Point[] = locationsFromOffers(offers);
+  const points: Point[] = getLocationsFromOffers(offers);
   const selectedCityLocation: Location = selectedCity.location;
 
   return (

@@ -3,8 +3,9 @@ import {Offer, Point} from '../../types/types';
 import {ThunkAppDispatch} from '../../types/action';
 import {setSelectedPoint} from '../../store/action';
 import {connect, ConnectedProps} from 'react-redux';
-import Bookmark, {BookmarkProps} from './bookmark';
-import {locationToPoint} from '../../store/reducers/offers-selectors';
+import Bookmark, {BookmarkProps} from '../bookmark/bookmark';
+import {getPointFromLocation} from '../../store/reducers/offers-selectors';
+import {saveFavorite} from '../../store/api-actions';
 
 type PlaceCardProps = BookmarkProps;
 
@@ -22,6 +23,9 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   onSelectPoint(selectedPoint: Point | undefined) {
     dispatch(setSelectedPoint(selectedPoint));
   },
+  saveFavoritePlace(hotelId: number, isFavorite: boolean) {
+    dispatch(saveFavorite(hotelId, isFavorite));
+  },
 });
 
 const connector = connect(null, mapDispatchToProps);
@@ -33,30 +37,30 @@ function PlaceCardContent(props: PlaceCardProps ): JSX.Element {
       <Bookmark {...props}/>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
-          <span style={{width: '80%'}}></span>
+          <span style={{width: `${props.offer.rating/5*100}%`}}></span>
           <span className="visually-hidden">Rating</span>
         </div>
       </div>
       <h2 className="place-card__name">
-        <a href="/#">{props.offer.title}</a>
+        <Link to={`/offer/${props.offer.id}`}>{props.offer.title}</Link>
       </h2>
-      <p className="place-card__type">{props.offer.type}</p>
+      <p className="place-card__type" style={{textTransform: 'capitalize'}}>{props.offer.type}</p>
     </div>
   );
 }
 
-function UniversalPlaceCard({offer, cardType, onSelectPoint}: ConnectedUniversalPlaceCardProps): JSX.Element {
+function UniversalPlaceCard({offer, cardType, onSelectPoint, saveFavoritePlace}: ConnectedUniversalPlaceCardProps): JSX.Element {
   return (
     <article className={`${cardType === WrapperType.Cities ? 'cities__place-card' : 'near-places__card' } place-card`}>
       <div className={`${cardType === WrapperType.Cities ? 'cities__image-wrapper' : 'near-places__image-wrapper'} place-card__image-wrapper`}
-        onMouseEnter={ (e) => {onSelectPoint( locationToPoint(offer.location, offer.title) );} }
+        onMouseEnter={ (e) => {onSelectPoint( getPointFromLocation(offer.location, offer.title) );} }
         onMouseLeave={ (e) => {onSelectPoint(undefined);} }
       >
         <Link to={`/offer/${offer.id}`}>
           <img className="place-card__image" src={offer.preview_image} width="260" height="200" alt="Place"/>
         </Link>
       </div>
-      <PlaceCardContent offer={offer}/>
+      <PlaceCardContent offer={offer} onSaveFavorite={saveFavoritePlace}/>
     </article>
   );
 }

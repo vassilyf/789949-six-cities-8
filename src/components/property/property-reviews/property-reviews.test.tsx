@@ -1,11 +1,11 @@
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import {TEST_AUTH_INFO} from '../../mocks/auth';
+import {TEST_AUTH_INFO} from '../../../mocks/auth';
 import {createMemoryHistory} from 'history';
 import {render, screen} from '@testing-library/react';
 import {Provider} from 'react-redux';
 import {Router} from 'react-router-dom';
 import PropertyReviews from './property-reviews';
-import {DETAILS_CHOSEN_STATE, FILLED_REVIEW} from '../../mocks/state';
+import {DETAILS_CHOSEN_STATE, FILLED_REVIEW} from '../../../mocks/state';
 
 const mockStore = configureMockStore();
 

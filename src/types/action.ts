@@ -4,21 +4,21 @@ import {AxiosInstance} from 'axios';
 import {AppRoute} from '../const';
 
 export enum ActionType {
-  SelectCity = 'wheretogo/selectCity',
-  SetOffers = 'wheretogo/setOffers',
-  SetSortingSelection = 'wheretogo/setSelectionMode',
-  SetSelectedPoint = 'wheretogo/setSelectedPoint',
-  SetAuthInfo = 'wheretogo/setAuthInfo',
-  Logout = 'wheretogo/logout',
-  Redirect = 'wheretogo/redirect',
-  ResetOfferDetails = 'wheretogo/resetofferdetails',
-  SetOfferDetails = 'wheretogo/setofferdetails',
-  SetNearPlaces = 'wheretogo/setnearplaces',
-  SetComments = 'wheretogo/setcomments',
-  SetReview = 'wheretogo/setreview',
-  SetReviewSavingStatus = 'wheretogo/setreviewsendingstatus',
-  SetFavorites = 'wheretogo/setfavorites',
-  MarkFavorite = 'wheretogo/markfavorite',
+  SelectCity = 'offers/selectCity',
+  SetOffers = 'offers/setOffers',
+  SetSortingSelection = 'offers/setSelectionMode',
+  SetSelectedPoint = 'offers/setSelectedPoint',
+  SetAuthInfo = 'user/setAuthInfo',
+  Logout = 'user/logout',
+  Redirect = 'common/redirect',
+  ResetOfferDetails = 'details/resetofferdetails',
+  SetOfferDetails = 'details/setofferdetails',
+  SetNearPlaces = 'details/setnearplaces',
+  SetComments = 'details/setcomments',
+  SetReview = 'details/setreview',
+  SetReviewSavingStatus = 'details/setreviewsendingstatus',
+  SetFavorites = 'favorites/setfavorites',
+  MarkFavorite = 'favorites/markfavorite',
 }
 
 export type SelectCityAction = {

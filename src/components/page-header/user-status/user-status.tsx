@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {AuthInfo} from '../../types/types';
-import {ThunkAppDispatch} from '../../types/action';
+import {AuthInfo} from '../../../types/types';
+import {ThunkAppDispatch} from '../../../types/action';
 import {connect, ConnectedProps} from 'react-redux';
-import {AppRoute} from '../../const';
-import {doLogout} from '../../store/api-actions';
+import {AppRoute} from '../../../const';
+import {doLogout} from '../../../store/api-actions';
 
 type UserStatusProps = {
   currentUser: AuthInfo
